@@ -17,31 +17,31 @@ import { useTranslation } from 'react-i18next';
 const values = [
   {
     icon: Heart,
-    title: 'Customer First',
-    description: 'We put our customers at the heart of everything we do, ensuring every journey is memorable.',
+    title: 'about.customerFirst',
+    description: 'about.customerFirstText',
   },
   {
     icon: Shield,
-    title: 'Trust & Safety',
-    description: 'Secure payments, verified listings, and 24/7 support to keep you safe and confident.',
+    title: 'about.trustSafety',
+    description: 'about.trustSafetyText',
   },
   {
     icon: Sparkles,
-    title: 'Curated Excellence',
-    description: 'Hand-picked hotels and experiences that meet our rigorous quality standards.',
+    title: 'about.curatedExcellence',
+    description: 'about.curatedExcellenceText',
   },
   {
     icon: Globe,
-    title: 'Global Reach',
-    description: 'Discover amazing destinations across 195 countries with local expertise.',
+    title: 'about.globalReach',
+    description: 'about.globalReachText',
   },
 ];
 
 const stats = [
-  { icon: Users, value: '500K+', label: 'Happy Travelers' },
-  { icon: Globe, value: '195+', label: 'Countries' },
-  { icon: Award, value: '15K+', label: 'Hotels' },
-  { icon: Rocket, value: '10+', label: 'Years' },
+  { icon: Users, value: '500K+', label: 'about.happyTravelers' },
+  { icon: Globe, value: '195+', label: 'about.countries' },
+  { icon: Award, value: '15K+', label: 'about.hotels' },
+  { icon: Rocket, value: '10+', label: 'about.years' },
 ];
 
 export default function About() {
@@ -61,7 +61,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-bold text-white mb-6"
           >
-            Our Story
+            {t('about.story')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -69,8 +69,7 @@ export default function About() {
             transition={{ delay: 0.2 }}
             className="text-xl text-white/80 leading-relaxed"
           >
-            TripNest was born from a simple belief: travel should be effortless, accessible,
-            and unforgettable. We've helped millions of travelers find their perfect stay.
+            {t('about.storyText')}
           </motion.p>
         </div>
       </section>
@@ -88,10 +87,9 @@ export default function About() {
               <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center mb-4">
                 <Target className="w-7 h-7 text-primary-500" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+              <h3 className="text-2xl font-bold mb-4">{t('ui.ourMission')}</h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                To make travel planning effortless and enjoyable for everyone, by providing
-                the best selection, transparent pricing, and exceptional service.
+                {t('about.missionText')}
               </p>
             </motion.div>
 
@@ -105,10 +103,9 @@ export default function About() {
               <div className="w-14 h-14 bg-accent-100 dark:bg-accent-900/30 rounded-2xl flex items-center justify-center mb-4">
                 <Eye className="w-7 h-7 text-accent-500" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+              <h3 className="text-2xl font-bold mb-4">{t('ui.ourVision')}</h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                To become the world's most trusted travel platform, connecting every traveler
-                with their perfect destination experience.
+                {t('about.visionText')}
               </p>
             </motion.div>
           </div>
@@ -126,14 +123,14 @@ export default function About() {
               >
                 <stat.icon className="w-8 h-8 text-primary-500 mx-auto mb-3" />
                 <div className="text-3xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-gray-500 text-sm">{stat.label}</div>
+                <div className="text-gray-500 text-sm">{t(stat.label)}</div>
               </motion.div>
             ))}
           </div>
 
           {/* Values */}
           <div>
-            <h2 className="text-4xl font-bold gradient-text text-center mb-12">Our Values</h2>
+            <h2 className="text-4xl font-bold gradient-text text-center mb-12">{t('ui.ourValues')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((value, index) => (
                 <motion.div
@@ -147,9 +144,9 @@ export default function About() {
                   <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4">
                     <value.icon className="w-6 h-6 text-primary-500" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{value.title}</h3>
+                  <h3 className="font-semibold text-lg mb-2">{t(value.title)}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {value.description}
+                    {t(value.description)}
                   </p>
                 </motion.div>
               ))}
@@ -163,15 +160,15 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mt-16"
           >
-            <h2 className="text-4xl font-bold gradient-text mb-4">Ready to Travel?</h2>
+            <h2 className="text-4xl font-bold gradient-text mb-4">{t('ui.readyToTravel')}</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Start exploring amazing destinations today
+              {t('about.ctaText')}
             </p>
             <Link
               to="/"
               className="inline-block px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all"
             >
-              Explore Now
+              {t('common.showMore')}
             </Link>
           </motion.div>
         </div>

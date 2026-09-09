@@ -22,7 +22,7 @@ export default function BookingSuccess() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Booking not found</h2>
+          <h2 className="text-2xl font-bold mb-4">{t('ui.bookingNotFound')}</h2>
           <Link to="/" className="text-primary-500 hover:text-primary-600">
             Back to Home
           </Link>
@@ -79,10 +79,10 @@ export default function BookingSuccess() {
             <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
               <div>
                 <h2 className="text-2xl font-bold text-primary-500">TripNest</h2>
-                <p className="text-sm text-gray-500">Booking Receipt</p>
+                <p className="text-sm text-gray-500">{t('ui.bookingReceipt')}</p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-medium">Booking ID</p>
+                <p className="text-sm font-medium">{t('ui.bookingId')}</p>
                 <p className="text-gray-500 text-sm">#{booking.id}</p>
               </div>
             </div>
@@ -109,28 +109,28 @@ export default function BookingSuccess() {
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-gray-400" />
                   <div>
-                    <p className="text-xs text-gray-500">Check-in</p>
+                    <p className="text-xs text-gray-500">{t('ui.checkIn')}</p>
                     <p className="text-sm font-medium">{formatDate(booking.checkIn)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-gray-400" />
                   <div>
-                    <p className="text-xs text-gray-500">Check-out</p>
+                    <p className="text-xs text-gray-500">{t('ui.checkOut')}</p>
                     <p className="text-sm font-medium">{formatDate(booking.checkOut)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4 text-gray-400" />
                   <div>
-                    <p className="text-xs text-gray-500">Guests</p>
+                    <p className="text-xs text-gray-500">{t('booking.guests')}</p>
                     <p className="text-sm font-medium">{booking.guests}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <CreditCard className="w-4 h-4 text-gray-400" />
                   <div>
-                    <p className="text-xs text-gray-500">Status</p>
+                    <p className="text-xs text-gray-500">{t('ui.status')}</p>
                     <p className="text-sm font-medium text-green-600 capitalize">{booking.status}</p>
                   </div>
                 </div>
@@ -144,21 +144,21 @@ export default function BookingSuccess() {
                   <span>{formatPrice(booking.priceBreakdown.basePrice, booking.currency)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Taxes (12%)</span>
+                  <span className="text-gray-500">{t('ui.taxes', { percent: 12 })}</span>
                   <span>{formatPrice(booking.priceBreakdown.taxes, booking.currency)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Service Fee (8%)</span>
+                  <span className="text-gray-500">{t('ui.serviceFee', { percent: 8 })}</span>
                   <span>{formatPrice(booking.priceBreakdown.fees, booking.currency)}</span>
                 </div>
                 {booking.priceBreakdown.discount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
-                    <span>Discount</span>
+                    <span>{t('ui.discount')}</span>
                     <span>-{formatPrice(booking.priceBreakdown.discount, booking.currency)}</span>
                   </div>
                 )}
                 <div className="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-700">
-                  <span className="font-semibold">Total</span>
+                  <span className="font-semibold">{t('ui.total')}</span>
                   <span className="text-2xl font-bold text-primary-500">
                     {formatPrice(booking.priceBreakdown.total, booking.currency)}
                   </span>
@@ -166,7 +166,7 @@ export default function BookingSuccess() {
               </div>
 
               <div className="pt-4 text-center">
-                <p className="text-sm text-gray-500">Guest Name</p>
+                <p className="text-sm text-gray-500">{t('ui.guestName')}</p>
                 <p className="font-medium">{booking.guestName}</p>
               </div>
             </div>

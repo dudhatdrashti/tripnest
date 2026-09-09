@@ -18,22 +18,22 @@ import toast from 'react-hot-toast';
 const contactInfo = [
   {
     icon: MapPin,
-    title: 'Visit Us',
+    title: 'ui.visitUs',
     details: '123 Travel Plaza, Suite 100, New York, NY 10001',
   },
   {
     icon: Phone,
-    title: 'Call Us',
+    title: 'ui.callUs',
     details: '+1 (555) 123-4567',
   },
   {
     icon: Mail,
-    title: 'Email Us',
+    title: 'ui.emailUs',
     details: 'support@tripnest.com',
   },
   {
     icon: Clock,
-    title: 'Working Hours',
+    title: 'ui.workingHours',
     details: 'Mon - Fri: 9:00 AM - 6:00 PM',
   },
 ];
@@ -48,7 +48,7 @@ export default function Contact() {
   } = useForm();
 
   const onSubmit = (data) => {
-    toast.success('Message sent successfully! We will get back to you soon.');
+    toast.success(t('ui.messageSent'));
     reset();
   };
 
@@ -62,7 +62,7 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold text-white mb-4"
           >
-            Contact Us
+            {t('footer.contact')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Info */}
             <div>
-              <h2 className="text-3xl font-bold gradient-text mb-8">Get in Touch</h2>
+              <h2 className="text-3xl font-bold gradient-text mb-8">{t('ui.getInTouch')}</h2>
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <motion.div
@@ -95,7 +95,7 @@ export default function Contact() {
                       <info.icon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">{info.title}</h3>
+                      <h3 className="font-semibold mb-1">{t(info.title)}</h3>
                       <p className="text-gray-600 dark:text-gray-400">{info.details}</p>
                     </div>
                   </motion.div>
@@ -110,12 +110,12 @@ export default function Contact() {
               viewport={{ once: true }}
               className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow"
             >
-              <h2 className="text-3xl font-bold gradient-text mb-8">Send us a Message</h2>
+              <h2 className="text-3xl font-bold gradient-text mb-8">{t('ui.sendMessage')}</h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <Input
-                  label="Full Name"
+                  label={t('booking.fullName')}
                   icon={User}
-                  placeholder="Enter your name"
+                  placeholder={t('ui.enterName')}
                   error={errors.name?.message}
                   {...register('name', {
                     required: 'Name is required',
@@ -123,10 +123,10 @@ export default function Contact() {
                   })}
                 />
                 <Input
-                  label="Email"
+                  label={t('booking.email')}
                   icon={Mail}
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('ui.enterEmail')}
                   error={errors.email?.message}
                   {...register('email', {
                     required: 'Email is required',
@@ -138,11 +138,11 @@ export default function Contact() {
                 />
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Message
+                    {t('ui.message')}
                   </label>
                   <textarea
                     rows={5}
-                    placeholder="How can we help you?"
+                    placeholder={t('ui.howHelp')}
                     className="input-field"
                     {...register('message', {
                       required: 'Message is required',
@@ -160,7 +160,7 @@ export default function Contact() {
                   className="w-full"
                   icon={Send}
                 >
-                  Send Message
+                  {t('ui.sendMessage')}
                 </Button>
               </form>
             </motion.div>

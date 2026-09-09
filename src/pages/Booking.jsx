@@ -51,8 +51,8 @@ export default function Booking() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">No hotel selected</h2>
-          <Button onClick={() => navigate('/')}>Back to Home</Button>
+          <h2 className="text-2xl font-bold mb-4">{t('ui.noHotelSelected')}</h2>
+          <Button onClick={() => navigate('/')}>{t('ui.backToHome')}</Button>
         </div>
       </div>
     );
@@ -69,7 +69,7 @@ export default function Booking() {
   const handleApplyPromo = () => {
     if (!promoCode.trim()) return;
     setAppliedPromo(promoCode.trim().toUpperCase());
-    toast.success('Promo code applied!');
+    toast.success(t('ui.promoApplied'));
   };
 
   const onSubmit = async (data) => {
@@ -97,17 +97,17 @@ export default function Booking() {
         payload: {
           id: Date.now(),
           type: 'booking',
-          title: 'Booking Confirmed',
-          message: `Your booking at ${hotel.name} is confirmed!`,
+          title: t('ui.bookingConfirmedTitle'),
+          message: t('ui.bookingConfirmedMessage', { hotel: hotel.name }),
           read: false,
           createdAt: new Date().toISOString(),
         },
       });
 
-      toast.success('Booking confirmed successfully!');
+      toast.success(t('ui.bookingConfirmed'));
       navigate(`/booking-success/${booking.id}`);
     } catch (error) {
-      toast.error('Booking failed. Please try again.');
+      toast.error(t('ui.bookingFailed'));
     } finally {
       setProcessing(false);
     }
@@ -141,7 +141,7 @@ export default function Booking() {
                 <Input
                   label={t('booking.fullName')}
                   icon={User}
-                  placeholder="John Doe"
+                  placeholder={t('booking.fullName')}
                   error={errors.fullName?.message}
                   {...register('fullName', {
                     required: 'Full name is required',
@@ -153,7 +153,7 @@ export default function Booking() {
                   label={t('booking.email')}
                   icon={Mail}
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder={t('booking.email')}
                   error={errors.email?.message}
                   {...register('email', {
                     required: 'Email is required',
@@ -168,7 +168,7 @@ export default function Booking() {
                   label={t('booking.phone')}
                   icon={Phone}
                   type="tel"
-                  placeholder="+1 555 123 4567"
+                  placeholder={t('booking.phone')}
                   error={errors.phone?.message}
                   {...register('phone', {
                     required: 'Phone number is required',
@@ -186,7 +186,7 @@ export default function Booking() {
                   <div className="flex items-start gap-3">
                     <textarea
                       rows={4}
-                      placeholder="Any special requests..."
+                      placeholder={t('ui.specialRequestsPlaceholder')}
                       className="input-field"
                       {...register('specialRequests')}
                     />
@@ -202,7 +202,7 @@ export default function Booking() {
                     <input
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
-                      placeholder="Enter promo code"
+                      placeholder={t('ui.enterPromo')}
                       className="input-field flex-1"
                     />
                     <Button variant="secondary" onClick={handleApplyPromo} type="button">
@@ -276,12 +276,12 @@ export default function Booking() {
                   <PriceDisplay price={priceBreakdown.taxes} showPerNight={false} className="text-sm font-medium" />
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Service Fee (8%)</span>
+                  <span className="text-gray-500">{t('ui.serviceFee', { percent: 8 })}</span>
                   <PriceDisplay price={priceBreakdown.fees} showPerNight={false} className="text-sm font-medium" />
                 </div>
                 {priceBreakdown.discount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
-                    <span>Discount</span>
+                    <span>{t('ui.discount')}</span>
                     <span>-{formatPrice(priceBreakdown.discount, currency)}</span>
                   </div>
                 )}

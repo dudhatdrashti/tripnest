@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, Search, Compass } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function NotFound() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center px-4">
@@ -26,10 +28,9 @@ export default function NotFound() {
           <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
             <Compass className="w-8 h-8 text-primary-500" />
           </div>
-          <h1 className="text-3xl font-bold mb-4">Page Not Found</h1>
+          <h1 className="text-3xl font-bold mb-4">{t('ui.pageNotFound')}</h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8">
-            The page you're looking for doesn't exist or has been moved.
-            Let's get you back on track!
+            {t('ui.notFoundDescription')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -38,14 +39,14 @@ export default function NotFound() {
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all"
             >
               <Home className="w-4 h-4" />
-              Back to Home
+              {t('ui.backToHome')}
             </Link>
             <Link
               to="/search"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
             >
               <Search className="w-4 h-4" />
-              Search Hotels
+              {t('ui.searchHotels')}
             </Link>
           </div>
         </motion.div>

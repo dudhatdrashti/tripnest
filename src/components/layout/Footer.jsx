@@ -26,7 +26,7 @@ export default function Footer() {
     e.preventDefault();
     if (email.trim()) {
       setEmail('');
-      toast.success('Subscribed to newsletter!');
+      toast.success(t('ui.subscribed'));
     }
   };
 
@@ -68,7 +68,7 @@ export default function Footer() {
 
           {/* Popular Destinations */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Popular Destinations</h3>
+            <h3 className="font-semibold text-white mb-4">{t('ui.popularDestinations')}</h3>
             <ul className="space-y-3">
               {destinations.slice(0, 6).map((dest) => (
                 <li key={dest.id}>
@@ -92,7 +92,7 @@ export default function Footer() {
               <li><Link to="/about" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">{t('footer.careers')}</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">{t('footer.press')}</Link></li>
               <li><Link to="/about" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">{t('footer.blog')}</Link></li>
-              <li><Link to="/faq" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">FAQ</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">{t('ui.faq')}</Link></li>
             </ul>
           </div>
 
@@ -106,15 +106,15 @@ export default function Footer() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder={t('ui.enterEmail')}
                   className="w-full px-4 py-3 pl-10 pr-12 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  aria-label="Email address"
+                  aria-label={t('booking.email')}
                 />
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <button
                   type="submit"
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-lg hover:opacity-90 transition-opacity"
-                  aria-label="Subscribe"
+                  aria-label={t('home.subscribe')}
                 >
                   <Send className="w-4 h-4 text-white" />
                 </button>
@@ -123,26 +123,30 @@ export default function Footer() {
 
             {/* App buttons */}
             <div className="mt-6 space-y-2">
-              <p className="text-xs text-gray-500 mb-2">Get the app</p>
+              <p className="text-xs text-gray-500 mb-2">{t('ui.getTheApp')}</p>
               <div className="flex gap-2">
                 <a
-                  href="#"
+                  href="https://www.apple.com/app-store/"
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
                 >
                   <Apple className="w-5 h-5 text-white" />
                   <div className="text-left">
-                    <p className="text-[10px] text-gray-400">Download on the</p>
-                    <p className="text-xs font-medium">App Store</p>
+                    <p className="text-[10px] text-gray-400">{t('ui.downloadOn')}</p>
+                    <p className="text-xs font-medium">{t('ui.appStore')}</p>
                   </div>
                 </a>
                 <a
-                  href="#"
+                  href="https://play.google.com/store"
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
                 >
                   <Play className="w-5 h-5 text-white" />
                   <div className="text-left">
-                    <p className="text-[10px] text-gray-400">Get it on</p>
-                    <p className="text-xs font-medium">Google Play</p>
+                    <p className="text-[10px] text-gray-400">{t('ui.getItOn')}</p>
+                    <p className="text-xs font-medium">{t('ui.googlePlay')}</p>
                   </div>
                 </a>
               </div>
@@ -164,28 +168,36 @@ export default function Footer() {
             <p className="text-gray-500 text-sm">&copy; 2024 TripNest. {t('home.footer')}</p>
             <div className="flex items-center gap-3">
               <a
-                href="#"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Facebook"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 hover:text-primary-400 transition-colors"
               >
                 <Facebook className="w-4 h-4 text-gray-400" />
               </a>
               <a
-                href="#"
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Twitter"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 hover:text-primary-400 transition-colors"
               >
                 <Twitter className="w-4 h-4 text-gray-400" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Instagram"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 hover:text-primary-400 transition-colors"
               >
                 <Instagram className="w-4 h-4 text-gray-400" />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Youtube"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 hover:text-primary-400 transition-colors"
               >
@@ -195,7 +207,7 @@ export default function Footer() {
           </div>
           <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-600">
             <Check className="w-3 h-3 text-primary-500" />
-            Secure payments · Free cancellation on most bookings · 24/7 support
+            {t('ui.footerAssurance')}
           </div>
         </div>
       </div>

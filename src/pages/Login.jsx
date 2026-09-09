@@ -278,7 +278,7 @@ export default function Login() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                    aria-label="Toggle password visibility"
+                    aria-label={t('ui.togglePassword')}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -306,7 +306,7 @@ export default function Login() {
                       type="button"
                       onClick={() => setShowConfirm(!showConfirm)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                      aria-label="Toggle confirm password visibility"
+                      aria-label={t('ui.toggleConfirmPassword')}
                     >
                       {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -398,7 +398,7 @@ export default function Login() {
             </span>
             <span className="flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
-              Best Prices
+              {t('ui.bestPrices')}
             </span>
           </div>
         </div>

@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 const data = [
   { month: 'Jan', bookings: 120 },
@@ -25,12 +26,13 @@ const data = [
 ];
 
 function CustomTooltip({ active, payload, label }) {
+  const { t } = useTranslation();
   if (!active || !payload?.length) return null;
   return (
     <div className="px-3 py-2 rounded-xl bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 text-sm">
       <div className="font-medium text-gray-800 dark:text-gray-200">{label}</div>
       <div className="text-gray-500 dark:text-gray-400 text-xs mt-0.5">
-        {payload[0].value.toLocaleString()} bookings
+        {payload[0].value.toLocaleString()} {t('ui.bookings')}
       </div>
     </div>
   );

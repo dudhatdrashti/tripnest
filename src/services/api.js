@@ -74,7 +74,7 @@ if (filters.sort) {
             (a, b) =>
               (b.popular ? 1 : 0) - (a.popular ? 1 : 0) ||
               b.rating - a.rating ||
-              b.reviews - a.reviews
+              b.reviewCount - a.reviewCount
           );
           break;
         default:

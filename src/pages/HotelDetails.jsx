@@ -90,7 +90,7 @@ export default function HotelDetails() {
           setSimilarHotels(similar);
         }
       } catch (error) {
-        toast.error('Failed to load hotel details');
+        toast.error(t('ui.failedLoad', { item: t('ui.hotelDetailsWord') }));
       } finally {
         setLoading(false);
       }
@@ -110,7 +110,7 @@ export default function HotelDetails() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Hotel not found</h2>
+          <h2 className="text-2xl font-bold mb-4">{t('ui.hotelNotFound')}</h2>
           <Link to="/" className="text-primary-500 hover:text-primary-600">
             Back to Home
           </Link>
@@ -122,16 +122,16 @@ export default function HotelDetails() {
   const handleWishlist = () => {
     if (isInWishlist(hotel.id)) {
       dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: hotel.id });
-      toast.success('Removed from wishlist');
+      toast.success(t('ui.removedWishlist'));
     } else {
       dispatch({ type: 'ADD_TO_WISHLIST', payload: hotel.id });
-      toast.success('Added to wishlist');
+      toast.success(t('ui.addedWishlist'));
     }
   };
 
   const handleShare = async () => {
     const result = await shareHotel(hotel);
-    if (result === 'copied') toast.success('Link copied to clipboard!');
+    if (result === 'copied') toast.success(t('ui.linkCopied'));
   };
 
   const handleBookNow = () => {
@@ -173,15 +173,15 @@ export default function HotelDetails() {
           <h3 className="text-xl font-semibold mb-3">{t('hotel.policies')}</h3>
           <div className="space-y-2 text-sm">
             <p className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
-              <span className="text-gray-500">Check-in</span>
+              <span className="text-gray-500">{t('ui.checkIn')}</span>
               <span className="font-medium">{hotel.policies.checkIn}</span>
             </p>
             <p className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
-              <span className="text-gray-500">Check-out</span>
+              <span className="text-gray-500">{t('ui.checkOut')}</span>
               <span className="font-medium">{hotel.policies.checkOut}</span>
             </p>
             <p className="py-2 text-gray-500">
-              <span className="font-medium text-gray-900 dark:text-white inline-block mb-1">Cancellation:</span>
+              <span className="font-medium text-gray-900 dark:text-white inline-block mb-1">{t('ui.cancellation')}</span>
               <br />
               {hotel.policies.cancellation}
             </p>
@@ -189,7 +189,7 @@ export default function HotelDetails() {
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-3">Price Trend</h3>
+          <h3 className="text-xl font-semibold mb-3">{t('ui.priceTrend')}</h3>
           <HotelPriceChart hotel={hotel} />
         </div>
       </div>
@@ -214,7 +214,7 @@ export default function HotelDetails() {
             ))}
           </div>
           <p className="text-gray-600 dark:text-gray-400">
-            Based on {hotel.reviews.toLocaleString()} reviews
+            Based on {hotel.reviewCount.toLocaleString()} reviews
           </p>
         </div>
       </div>
@@ -246,7 +246,7 @@ export default function HotelDetails() {
           </div>
         </div>
         <div>
-          <h3 className="text-xl font-semibold mb-3">Nearby Restaurants</h3>
+          <h3 className="text-xl font-semibold mb-3">{t('ui.nearbyRestaurants')}</h3>
           <div className="space-y-3">
             {hotel.nearbyRestaurants.map((restaurant) => (
               <div key={restaurant.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
@@ -359,7 +359,7 @@ export default function HotelDetails() {
                   <button
                     onClick={handleWishlist}
                     className="p-3 bg-white dark:bg-gray-700 rounded-xl shadow hover:shadow-lg transition-all"
-                    title="Toggle wishlist"
+                    title={t('ui.toggleWishlist')}
                   >
                     <Heart
                       className={`w-5 h-5 ${
@@ -372,7 +372,7 @@ export default function HotelDetails() {
                   <button
                     onClick={handleShare}
                     className="p-3 bg-white dark:bg-gray-700 rounded-xl shadow hover:shadow-lg transition-all"
-                    title="Share"
+                    title={t('ui.share')}
                   >
                     <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-300" />
                   </button>
@@ -387,7 +387,7 @@ export default function HotelDetails() {
                   </span>
                 </div>
                 <span className="text-gray-500 dark:text-gray-400">
-                  {hotel.reviews.toLocaleString()} reviews
+                  {hotel.reviewCount.toLocaleString()} reviews
                 </span>
                 <Badge variant="primary">{hotel.location.city}</Badge>
                 <Badge>{hotel.propertyType}</Badge>
@@ -407,7 +407,7 @@ export default function HotelDetails() {
 
               {/* Room Selection */}
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">Select Room</label>
+                <label className="block text-sm font-medium mb-2">{t('ui.selectRoom')}</label>
                 <div className="space-y-2">
                   {hotel.rooms.map((room) => (
                     <button
@@ -432,7 +432,7 @@ export default function HotelDetails() {
               {/* Dates */}
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Check-in</label>
+                  <label className="block text-sm font-medium mb-1">{t('ui.checkIn')}</label>
                   <input
                     type="date"
                     value={checkIn}
@@ -441,7 +441,7 @@ export default function HotelDetails() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Check-out</label>
+                  <label className="block text-sm font-medium mb-1">{t('ui.checkOut')}</label>
                   <input
                     type="date"
                     value={checkOut}
@@ -453,7 +453,7 @@ export default function HotelDetails() {
 
               {/* Guests */}
               <div className="mb-6">
-                <label className="block text-sm font-medium mb-1">Guests</label>
+                <label className="block text-sm font-medium mb-1">{t('booking.guests')}</label>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setGuests(Math.max(1, guests - 1))}

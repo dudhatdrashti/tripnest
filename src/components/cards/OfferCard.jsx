@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Gift, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 export default function OfferCard({ offer, index = 0 }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(offer.code);
     setCopied(true);
-    toast.success('Promo code copied!');
+    toast.success(t('ui.promoCopied'));
     setTimeout(() => setCopied(false), 2000);
   };
 

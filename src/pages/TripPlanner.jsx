@@ -20,20 +20,20 @@ import Button from '../components/ui/Button';
 import toast from 'react-hot-toast';
 
 const interestsList = [
-  { id: 'culture', label: 'Culture', icon: '🏛️' },
-  { id: 'adventure', label: 'Adventure', icon: '🏔️' },
-  { id: 'food', label: 'Food', icon: '🍜' },
-  { id: 'beach', label: 'Beach', icon: '🏖️' },
-  { id: 'shopping', label: 'Shopping', icon: '🛍️' },
-  { id: 'nightlife', label: 'Nightlife', icon: '🌙' },
-  { id: 'nature', label: 'Nature', icon: '🌿' },
-  { id: 'photography', label: 'Photography', icon: '📸' },
+  { id: 'culture', label: 'ui.culture', icon: '🏛️' },
+  { id: 'adventure', label: 'ui.adventure', icon: '🏔️' },
+  { id: 'food', label: 'ui.food', icon: '🍜' },
+  { id: 'beach', label: 'ui.beach', icon: '🏖️' },
+  { id: 'shopping', label: 'ui.shopping', icon: '🛍️' },
+  { id: 'nightlife', label: 'ui.nightlife', icon: '🌙' },
+  { id: 'nature', label: 'ui.nature', icon: '🌿' },
+  { id: 'photography', label: 'ui.photography', icon: '📸' },
 ];
 
 const budgetRanges = [
-  { id: 'budget', label: 'Budget', range: '$500 - $1000', icon: '💰' },
-  { id: 'mid', label: 'Mid Range', range: '$1000 - $3000', icon: '💳' },
-  { id: 'luxury', label: 'Luxury', range: '$3000+', icon: '💎' },
+  { id: 'budget', label: 'ui.budget', range: '$500 - $1000', icon: '💰' },
+  { id: 'mid', label: 'ui.midRange', range: '$1000 - $3000', icon: '💳' },
+  { id: 'luxury', label: 'ui.luxury', range: '$3000+', icon: '💎' },
 ];
 
 const hotels = ['Grand Plaza Hotel', 'Ocean View Resort', 'City Center Suites', 'Boutique Heritage Inn'];
@@ -60,9 +60,9 @@ const generateItinerary = (destination, budget, days, interests) => {
     const count = interests.length >= 3 ? 3 : 2;
     for (let j = 0; j < count; j++) {
       dayActivities.push({
-        time: j === 0 ? 'Morning' : j === 1 ? 'Afternoon' : 'Evening',
+        time: j === 0 ? 'ui.morning' : j === 1 ? 'ui.afternoon' : 'ui.evening',
         title: pickRandom(activities, usedActivities),
-        description: `Experience the best of ${destination} with this curated activity.`,
+        description: 'ui.curatedActivity',
       });
     }
     daysPlan.push({
@@ -80,11 +80,11 @@ const generateItinerary = (destination, budget, days, interests) => {
     interests: interestsList.filter((i) => interests.includes(i.id)),
     daysPlan,
     tips: [
-      `Book your flights to ${destination} at least 3 weeks in advance for the best prices.`,
-      `Pack light and use public transport to save on travel costs.`,
-      `Learn a few local phrases - locals appreciate the effort!`,
-      `Visit popular attractions early morning to avoid crowds.`,
-      `Try local street food for authentic and affordable dining experiences.`,
+      'ui.tipBookFlights',
+      'ui.tipPackLight',
+      'ui.tipLearnPhrases',
+      'ui.tipVisitEarly',
+      'ui.tipTryStreetFood',
     ],
   };
 };
@@ -107,11 +107,11 @@ export default function TripPlanner() {
 
   const handleGenerate = () => {
     if (!destination.trim()) {
-      toast.error('Please enter a destination');
+      toast.error(t('ui.pleaseDestination'));
       return;
     }
     if (interests.length === 0) {
-      toast.error('Please select at least one interest');
+      toast.error(t('ui.pleaseInterest'));
       return;
     }
     setGenerating(true);
@@ -119,7 +119,7 @@ export default function TripPlanner() {
       setItinerary(generateItinerary(destination, budget, days, interests));
       setGenerating(false);
       setStep(3);
-      toast.success('Your itinerary is ready!');
+      toast.success(t('ui.itineraryReady'));
     }, 2000);
   };
 
@@ -133,7 +133,7 @@ export default function TripPlanner() {
   };
 
   const handleDownload = () => {
-    toast.success('Itinerary exported! (Demo)');
+    toast.success(t('ui.itineraryExported'));
   };
 
   return (
@@ -151,14 +151,14 @@ export default function TripPlanner() {
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6"
           >
             <Sparkles className="w-5 h-5 text-yellow-300" />
-            <span className="text-white font-medium">AI Powered</span>
+            <span className="text-white font-medium">{t('ui.aiPowered')}</span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-bold text-white mb-4"
           >
-            AI Trip Planner
+            {t('ui.aiTripPlanner')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -166,7 +166,7 @@ export default function TripPlanner() {
             transition={{ delay: 0.2 }}
             className="text-white/80 text-lg"
           >
-            Create your perfect personalized travel itinerary in seconds
+            {t('ui.tripPlannerSubtitle')}
           </motion.p>
         </div>
       </section>
@@ -205,18 +205,18 @@ export default function TripPlanner() {
                 exit={{ opacity: 0, x: -30 }}
                 className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow"
               >
-                <h2 className="text-2xl font-bold mb-6">Where are you going?</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('ui.whereGoing')}</h2>
                 <div className="relative">
                   <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    placeholder="Enter your dream destination (e.g., Bali, Paris, Tokyo)"
+                    placeholder={t('ui.dreamDestination')}
                     className="input-field pl-12"
                   />
                 </div>
                 <div className="flex flex-wrap gap-2 mt-4">
-                  {['Paris', 'Bali', 'Tokyo', 'Dubai', 'Rome', 'Barcelona'].map((d) => (
+                  {['Kyoto', 'Paris', 'Tokyo', 'Dubai', 'Rome', 'Barcelona'].map((d) => (
                     <button
                       key={d}
                       onClick={() => setDestination(d)}
@@ -228,7 +228,7 @@ export default function TripPlanner() {
                 </div>
                 <div className="mt-8">
                   <Button variant="primary" size="lg" className="w-full" onClick={() => setStep(2)}>
-                    Continue
+                    {t('ui.continue')}
                   </Button>
                 </div>
               </motion.div>
@@ -246,7 +246,7 @@ export default function TripPlanner() {
                 <div className="mb-8">
                   <label className="flex items-center gap-2 text-xl font-bold mb-4">
                     <Wallet className="w-5 h-5 text-primary-500" />
-                    What's your budget?
+                    {t('ui.whatsBudget')}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {budgetRanges.map((b) => (
@@ -260,7 +260,7 @@ export default function TripPlanner() {
                         }`}
                       >
                         <div className="text-2xl mb-2">{b.icon}</div>
-                        <div className="font-semibold">{b.label}</div>
+                        <div className="font-semibold">                        {t(b.label)}</div>
                         <div className="text-sm text-gray-500">{b.range}</div>
                       </button>
                     ))}
@@ -270,7 +270,7 @@ export default function TripPlanner() {
                 <div className="mb-8">
                   <label className="flex items-center gap-2 text-xl font-bold mb-4">
                     <Calendar className="w-5 h-5 text-primary-500" />
-                    How many days?
+                    {t('ui.howManyDays')}
                   </label>
                   <div className="flex items-center gap-4">
                     <button
@@ -286,14 +286,14 @@ export default function TripPlanner() {
                     >
                       +
                     </button>
-                    <span className="text-gray-500">days</span>
+                    <span className="text-gray-500">{t('ui.days')}</span>
                   </div>
                 </div>
 
                 <div className="mb-8">
                   <label className="flex items-center gap-2 text-xl font-bold mb-4">
                     <Heart className="w-5 h-5 text-primary-500" />
-                    What are you interested in?
+                    {t('ui.interestedIn')}
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {interestsList.map((interest) => (
@@ -307,7 +307,7 @@ export default function TripPlanner() {
                         }`}
                       >
                         <div className="text-2xl mb-1">{interest.icon}</div>
-                        <div className="font-medium text-sm">{interest.label}</div>
+                        <div className="font-medium text-sm">{t(interest.label)}</div>
                       </button>
                     ))}
                   </div>
@@ -315,10 +315,10 @@ export default function TripPlanner() {
 
                 <div className="flex gap-4">
                   <Button variant="secondary" size="lg" onClick={() => setStep(1)}>
-                    Back
+                    {t('ui.back')}
                   </Button>
                   <Button variant="primary" size="lg" className="flex-1" onClick={handleGenerate} loading={generating}>
-                    {generating ? 'Generating...' : 'Generate Itinerary'}
+                    {generating ? t('ui.generating') : t('ui.generateItinerary')}
                     {!generating && <Wand2 className="w-4 h-4" />}
                   </Button>
                 </div>
@@ -340,16 +340,16 @@ export default function TripPlanner() {
                         Your {itinerary.destination} Adventure
                       </h2>
                       <p className="text-gray-500">
-                        {itinerary.days} days · {itinerary.budget.label} budget ·{' '}
-                        {itinerary.interests.map((i) => i.label).join(', ')}
+                        {itinerary.days} {t('ui.days')} · {t(itinerary.budget.label)} ·{' '}
+                        {itinerary.interests.map((i) => t(i.label)).join(', ')}
                       </p>
                     </div>
                     <div className="flex gap-3">
                       <Button variant="outline" size="sm" onClick={handleReset} icon={Lightbulb}>
-                        New Trip
+                        {t('ui.newTrip')}
                       </Button>
                       <Button variant="primary" size="sm" onClick={handleDownload} icon={Download}>
-                        Export
+                        {t('ui.export')}
                       </Button>
                     </div>
                   </div>
@@ -368,28 +368,28 @@ export default function TripPlanner() {
                           <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center font-bold text-primary-500">
                             {dayPlan.day}
                           </div>
-                          <h3 className="text-xl font-semibold">Day {dayPlan.day}</h3>
+                          <h3 className="text-xl font-semibold">{t('ui.day')} {dayPlan.day}</h3>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                             <div className="flex items-center gap-2 font-medium mb-2">
                               <Hotel className="w-4 h-4 text-primary-500" />
-                              Stay
+                              {t('ui.stay')}
                             </div>
                             <p className="text-sm text-gray-600 dark:text-gray-400">{dayPlan.hotel}</p>
                           </div>
                           <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                             <div className="flex items-center gap-2 font-medium mb-2">
                               <UtensilsCrossed className="w-4 h-4 text-primary-500" />
-                              Dining
+                              {t('ui.dining')}
                             </div>
                             <p className="text-sm text-gray-600 dark:text-gray-400">{dayPlan.restaurants[0]}</p>
                           </div>
                           <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                             <div className="flex items-center gap-2 font-medium mb-2">
                               <Plane className="w-4 h-4 text-primary-500" />
-                              Activities
+                              {t('ui.activities')}
                             </div>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                               {dayPlan.activities.map((a) => a.title).join(', ')}
@@ -401,11 +401,11 @@ export default function TripPlanner() {
                           {dayPlan.activities.map((activity, index) => (
                             <div key={index} className="flex gap-3 items-start">
                               <div className="w-20 text-xs font-medium text-primary-500 pt-0.5">
-                                {activity.time}
+                                {t(activity.time)}
                               </div>
                               <div>
                                 <p className="font-medium text-sm">{activity.title}</p>
-                                <p className="text-sm text-gray-500">{activity.description}</p>
+                                <p className="text-sm text-gray-500">{t(activity.description, { destination: itinerary.destination })}</p>
                               </div>
                             </div>
                           ))}
@@ -419,13 +419,13 @@ export default function TripPlanner() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow">
                   <h3 className="flex items-center gap-2 text-xl font-bold mb-4">
                     <Lightbulb className="w-5 h-5 text-yellow-500" />
-                    Travel Tips
+                    {t('ui.travelTips')}
                   </h3>
                   <div className="space-y-3">
                     {itinerary.tips.map((tip, index) => (
                       <div key={index} className="flex items-start gap-3">
                         <Camera className="w-4 h-4 text-primary-500 mt-0.5" />
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">{tip}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t(tip, { destination: itinerary.destination })}</p>
                       </div>
                     ))}
                   </div>

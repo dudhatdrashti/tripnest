@@ -21,7 +21,7 @@ export default function Destinations() {
         const data = await api.getDestinations();
         setDestinations(data);
       } catch (error) {
-        toast.error('Failed to load destinations');
+        toast.error(t('ui.failedLoad', { item: t('ui.destinationsWord') }));
       } finally {
         setLoading(false);
       }
@@ -60,10 +60,10 @@ export default function Destinations() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Explore All Destinations
+              {t('ui.exploreAllDestinations')}
             </h1>
             <p className="text-xl text-white/80 mb-8">
-              From tropical beaches to mountain peaks, discover the world's most extraordinary places.
+              {t('ui.destinationsDescription')}
             </p>
 
             {/* Search */}
@@ -72,9 +72,9 @@ export default function Destinations() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search destinations, countries, tags..."
+                placeholder={t('ui.searchDestinationsCountriesTags')}
                 className="w-full px-6 py-4 pl-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all"
-                aria-label="Search destinations"
+                aria-label={t('ui.searchDestinations')}
               />
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
             </div>
@@ -91,7 +91,7 @@ export default function Destinations() {
             </div>
             <div>
               <div className="text-2xl font-bold gradient-text">{destinations.length}</div>
-              <div className="text-sm text-gray-500">Destinations</div>
+              <div className="text-sm text-gray-500">{t('ui.destinations')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -102,7 +102,7 @@ export default function Destinations() {
               <div className="text-2xl font-bold gradient-text">
                 {destinations.reduce((acc, d) => acc + d.hotels, 0)}
               </div>
-              <div className="text-sm text-gray-500">Hotels</div>
+              <div className="text-sm text-gray-500">{t('nav.hotels')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -113,7 +113,7 @@ export default function Destinations() {
               <div className="text-2xl font-bold gradient-text">
                 {destinations.reduce((acc, d) => acc + d.tags.length, 0)}
               </div>
-              <div className="text-sm text-gray-500">Experiences</div>
+              <div className="text-sm text-gray-500">{t('ui.experiences')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export default function Destinations() {
               <div className="text-2xl font-bold gradient-text">
                 {destinations.filter((d) => d.rating >= 4.5).length}
               </div>
-              <div className="text-sm text-gray-500">Top Rated</div>
+              <div className="text-sm text-gray-500">{t('ui.topRated')}</div>
             </div>
           </div>
         </div>
@@ -138,19 +138,19 @@ export default function Destinations() {
           ) : filtered.length === 0 ? (
             <EmptyState
               icon={Search}
-              title="No destinations found"
-              description="Try adjusting your search or explore all destinations."
-              actionLabel="Clear Search"
+              title={t('ui.noDestinationsFound')}
+              description={t('ui.adjustSearch')}
+              actionLabel={t('ui.clearSearch')}
               onAction={() => setQuery('')}
             />
           ) : (
             <>
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-3xl font-bold gradient-text">
-                  {filtered.length} {filtered.length === 1 ? 'Destination' : 'Destinations'}
+                  {filtered.length} {filtered.length === 1 ? t('ui.destinationSingular') : t('ui.destinationPlural')}
                 </h2>
                 <p className="text-gray-500 text-sm hidden sm:block">
-                  {query ? `Results for "${query}"` : 'All destinations'}
+                  {query ? t('ui.resultsFor', { query }) : t('ui.allDestinations')}
                 </p>
               </div>
               <motion.div

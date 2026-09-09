@@ -1,7 +1,9 @@
 import React from 'react';
 import { Plane } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function PageLoader() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center">
@@ -11,7 +13,7 @@ export function PageLoader() {
           <Plane className="absolute inset-0 m-auto w-6 h-6 text-primary-500 animate-pulse" />
         </div>
         <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">
-          Loading...
+          {t('common.loading')}
         </p>
       </div>
     </div>

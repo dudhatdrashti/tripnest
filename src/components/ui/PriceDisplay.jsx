@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useApp } from '../../context/AppContext';
 import { formatPrice } from '../../utils/helpers';
 
 export default function PriceDisplay({ price, currency, showPerNight = true, className = '' }) {
   const { currency: appCurrency } = useApp();
+  const { t } = useTranslation();
   const displayCurrency = currency || appCurrency;
 
   return (
@@ -12,7 +14,7 @@ export default function PriceDisplay({ price, currency, showPerNight = true, cla
         {formatPrice(price, displayCurrency)}
       </span>
       {showPerNight && (
-        <span className="text-sm text-gray-500 dark:text-gray-400">/night</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">{t('ui.night')}</span>
       )}
     </div>
   );

@@ -19,6 +19,7 @@ import Badge from '../ui/Badge';
 import PriceDisplay from '../ui/PriceDisplay';
 import { shareHotel, formatPrice } from '../../utils/helpers';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const amenityIcons = {
   wifi: Wifi,
@@ -27,9 +28,14 @@ const amenityIcons = {
   ac: Snowflake,
   gym: Dumbbell,
   restaurant: Utensils,
+  'Free WiFi': Wifi,
+  'Private Onsen': Waves,
+  'Fine Dining': Utensils,
+  'Spa & Wellness': Utensils,
 };
 
 export default function HotelCard({ hotel, index = 0 }) {
+  const { t } = useTranslation();
   const { isInWishlist, dispatch, currency } = useApp();
 
   const handleWishlist = (e) => {
@@ -37,10 +43,10 @@ export default function HotelCard({ hotel, index = 0 }) {
     e.stopPropagation();
     if (isInWishlist(hotel.id)) {
       dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: hotel.id });
-      toast.success('Removed from wishlist');
+      toast.success(t('ui.removedWishlist'));
     } else {
       dispatch({ type: 'ADD_TO_WISHLIST', payload: hotel.id });
-      toast.success('Added to wishlist');
+      toast.success(t('ui.addedWishlist'));
     }
   };
 
@@ -49,7 +55,7 @@ export default function HotelCard({ hotel, index = 0 }) {
     e.stopPropagation();
     const result = await shareHotel(hotel);
     if (result === 'copied') {
-      toast.success('Link copied to clipboard!');
+      toast.success(t('ui.linkCopied'));
     }
   };
 
@@ -86,7 +92,7 @@ export default function HotelCard({ hotel, index = 0 }) {
             <button
               onClick={handleWishlist}
               aria-label={
-                isInWishlist(hotel.id) ? 'Remove from wishlist' : 'Add to wishlist'
+                isInWishlist(hotel.id) ? t('ui.removeFromWishlist') : t('ui.addToWishlist')
               }
               className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/40 transition-all"
             >
@@ -100,7 +106,7 @@ export default function HotelCard({ hotel, index = 0 }) {
             </button>
             <button
               onClick={handleShare}
-              aria-label="Share hotel"
+              aria-label={t('ui.shareHotel')}
               className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/40 transition-all"
             >
               <Share2 className="w-4 h-4 text-white" />
@@ -155,7 +161,7 @@ export default function HotelCard({ hotel, index = 0 }) {
               Free Cancellation
             </Badge>
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              ({hotel.reviews.toLocaleString()} reviews)
+              ({hotel.reviewCount.toLocaleString()} reviews)
             </span>
           </div>
 

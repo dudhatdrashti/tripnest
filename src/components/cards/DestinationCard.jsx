@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   MapPin,
   Star,
@@ -44,13 +45,14 @@ const destinationStats = {
   Jaipur: { value: 18, label: 'Palaces' },
   Dubai: { value: 30, label: 'Attractions' },
   Tokyo: { value: 22, label: 'Experiences' },
-  Bali: { value: 15, label: 'Retreats' },
+  Kyoto: { value: 15, label: 'Experiences' },
 };
 
 export default function DestinationCard({ destination, index = 0 }) {
+  const { t } = useTranslation();
   const stat = destinationStats[destination.name] || {
     value: destination.hotels || 0,
-    label: 'Experiences',
+    label: 'experiences',
   };
 
   return (
@@ -80,7 +82,7 @@ export default function DestinationCard({ destination, index = 0 }) {
           <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-md border border-white/30 px-2.5 py-1.5 rounded-full shadow-lg shadow-black/20">
             <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
             <span className="text-sm font-bold text-white">{destination.rating}</span>
-            <span className="text-[11px] text-white/80 font-medium">Excellent</span>
+            <span className="text-[11px] text-white/80 font-medium">{t('ui.excellent')}</span>
           </div>
         </div>
 
@@ -93,12 +95,12 @@ export default function DestinationCard({ destination, index = 0 }) {
             </span>
             <span className="flex items-center gap-1">
               <Compass className="w-3.5 h-3.5" />
-              {stat.value} {stat.label}
+              {stat.value} {t(`ui.${stat.label.toLowerCase().replace(/\s+/g, '')}`, { defaultValue: stat.label })}
             </span>
           </div>
           {/* Concise premium description */}
           <p className="text-white/70 text-sm line-clamp-2 leading-relaxed">
-            {destination.description}
+            {t(`ui.destinationDescriptions.${destination.name}`, { defaultValue: destination.description })}
           </p>
 
           {/* Glass tags with icons */}
@@ -111,7 +113,7 @@ export default function DestinationCard({ destination, index = 0 }) {
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-xs text-white"
                 >
                   <TagIcon className="w-3 h-3" />
-                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                  {t(`ui.destinationTags.${tag}`, { defaultValue: tag })}
                 </span>
               );
             })}
@@ -119,7 +121,7 @@ export default function DestinationCard({ destination, index = 0 }) {
 
           {/* Hover CTA */}
           <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-white opacity-0 -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-            Explore Destination
+            {t('ui.exploreDestination')}
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </div>
         </div>

@@ -21,6 +21,7 @@ Star,
 } from 'lucide-react';
 import { AMENITIES_LIST, PROPERTY_TYPES, RATING_FILTERS, PROPERTY_FEATURES } from '../../constants';
 import Button from '../ui/Button';
+import { useTranslation } from 'react-i18next';
 
 const amenityIcons = {
   Wifi,
@@ -58,6 +59,7 @@ export default function FilterSidebar({
   activeFilterCount,
   showApply = false,
 }) {
+  const { t } = useTranslation();
   const handlePriceChange = (e) => {
     const value = e.target.value;
     const maxPrice = value === '0' ? '' : value;
@@ -70,7 +72,7 @@ export default function FilterSidebar({
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-semibold text-lg flex items-center gap-2">
           <SlidersHorizontal className="w-5 h-5 text-primary-500" />
-          Filters
+          {t('search.filters')}
         </h2>
         {activeFilterCount > 0 && (
           <button
@@ -78,7 +80,7 @@ export default function FilterSidebar({
             className="flex items-center gap-1 text-sm text-red-500 hover:text-red-600 transition-colors"
           >
             <X className="w-4 h-4" />
-            Reset All
+            {t('ui.resetAll')}
           </button>
         )}
       </div>
@@ -86,9 +88,9 @@ export default function FilterSidebar({
       {/* Price Range */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Price Range</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('ui.priceRange')}</label>
           <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">
-            {filters.maxPrice ? `Max $${filters.maxPrice}` : 'Any Price'}
+            {filters.maxPrice ? t('ui.maxPrice', { price: filters.maxPrice }) : t('ui.anyPrice')}
           </span>
         </div>
         <input
@@ -99,7 +101,7 @@ export default function FilterSidebar({
           value={filters.maxPrice || 0}
           onChange={handlePriceChange}
           className="w-full accent-primary-500"
-          aria-label="Maximum price"
+          aria-label={t('ui.maximumPrice')}
         />
         <div className="flex justify-between text-xs text-gray-400 mt-1">
           <span>$0</span>
@@ -110,7 +112,7 @@ export default function FilterSidebar({
       {/* Star Rating */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-          Star Rating
+          {t('ui.starRating')}
         </label>
         <div className="space-y-2">
           {RATING_FILTERS.map((r) => (
@@ -131,7 +133,7 @@ export default function FilterSidebar({
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 <Star className={`w-4 h-4 ${r.value <= 4.5 ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
-                <span className="ml-1">{r.label}</span>
+                <span className="ml-1">{t(r.label)}</span>
               </span>
             </label>
           ))}
@@ -141,7 +143,7 @@ export default function FilterSidebar({
       {/* Property Type */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-          Property Type
+          {t('search.propertyType')}
         </label>
         <div className="flex flex-wrap gap-2">
           {PROPERTY_TYPES.map((pt) => (
@@ -156,7 +158,7 @@ export default function FilterSidebar({
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
-              {pt.label}
+              {t(pt.label)}
             </button>
           ))}
         </div>
@@ -165,7 +167,7 @@ export default function FilterSidebar({
       {/* Key Features */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-          Popular Features
+          {t('ui.popularFeatures')}
         </label>
         <div className="space-y-2">
           {PROPERTY_FEATURES.map((feature) => {
@@ -182,7 +184,7 @@ export default function FilterSidebar({
                 }`}
               >
                 {Icon && <Icon className="w-4 h-4" />}
-                <span>{feature.label}</span>
+                <span>{t(feature.label)}</span>
                 {isActive && (
                   <motion.span
                     initial={{ scale: 0 }}
@@ -201,7 +203,7 @@ export default function FilterSidebar({
       {/* Amenities */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-          Amenities
+          {t('search.amenities')}
         </label>
         <div className="grid grid-cols-2 gap-2">
           {AMENITIES_LIST.map((amenity) => {
@@ -219,7 +221,7 @@ export default function FilterSidebar({
                 }`}
               >
                 {Icon && <Icon className="w-3.5 h-3.5" />}
-                <span className="truncate">{amenity.label}</span>
+                <span className="truncate">{t(amenity.label)}</span>
               </button>
             );
           })}
@@ -230,7 +232,7 @@ export default function FilterSidebar({
       {showApply && (
         <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700 space-y-3">
           <Button variant="primary" fullWidth onClick={onApply}>
-            Apply Filters
+            {t('ui.applyFilters')}
             {activeFilterCount > 0 && (
               <span className="ml-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">
                 {activeFilterCount}
@@ -238,7 +240,7 @@ export default function FilterSidebar({
             )}
           </Button>
           <Button variant="outline" fullWidth onClick={onClear}>
-            Reset Filters
+            {t('ui.resetFilters')}
           </Button>
         </div>
       )}

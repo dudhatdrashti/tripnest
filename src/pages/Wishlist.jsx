@@ -24,7 +24,7 @@ export default function Wishlist() {
         const filtered = allHotels.filter((h) => wishlist.includes(h.id));
         setHotels(filtered);
       } catch (error) {
-        toast.error('Failed to load wishlist');
+        toast.error(t('ui.failedLoad', { item: t('ui.wishlistWord') }));
       } finally {
         setLoading(false);
       }
@@ -34,12 +34,12 @@ export default function Wishlist() {
 
   const handleRemove = (hotelId) => {
     dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: hotelId });
-    toast.success('Removed from wishlist');
+    toast.success(t('ui.removedWishlist'));
   };
 
   const handleClearAll = () => {
     dispatch({ type: 'CLEAR_WISHLIST' });
-    toast.success('Wishlist cleared');
+    toast.success(t('ui.wishlistCleared'));
   };
 
   return (
@@ -49,7 +49,7 @@ export default function Wishlist() {
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">{t('wishlist.title')}</h1>
             <p className="text-gray-600 dark:text-gray-400">
-              {hotels.length} saved {hotels.length === 1 ? 'hotel' : 'hotels'}
+              {hotels.length} {t(hotels.length === 1 ? 'ui.hotel' : 'ui.hotels')}
             </p>
           </div>
           {hotels.length > 0 && (
@@ -58,7 +58,7 @@ export default function Wishlist() {
               className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
             >
               <Trash2 className="w-4 h-4" />
-              Clear All
+              {t('ui.clearAll')}
             </button>
           )}
         </div>

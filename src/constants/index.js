@@ -6,47 +6,47 @@ export const CURRENCIES = {
 };
 
 export const SORT_OPTIONS = [
-  { value: 'recommended', label: 'Recommended' },
-  { value: 'popularity', label: 'Popularity' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'rating', label: 'Highest Rated' },
-  { value: 'price-asc', label: 'Price: Low to High' },
-  { value: 'price-desc', label: 'Price: High to Low' },
+  { value: 'recommended', label: 'ui.sortRecommended' },
+  { value: 'popularity', label: 'ui.sortPopularity' },
+  { value: 'newest', label: 'ui.sortNewest' },
+  { value: 'rating', label: 'ui.sortHighestRated' },
+  { value: 'price-asc', label: 'ui.sortPriceLow' },
+  { value: 'price-desc', label: 'ui.sortPriceHigh' },
 ];
 
 export const PROPERTY_FEATURES = [
-  { id: 'freeCancellation', label: 'Free Cancellation', icon: 'ShieldCheck', category: 'convenience' },
-  { id: 'breakfast', label: 'Breakfast Included', icon: 'Coffee', category: 'dining' },
-  { id: 'pool', label: 'Swimming Pool', icon: 'SwimmingPool', category: 'recreation' },
-  { id: 'parking', label: 'Parking', icon: 'ParkingCircle', category: 'convenience' },
-  { id: 'wifi', label: 'WiFi', icon: 'Wifi', category: 'convenience' },
-  { id: 'ac', label: 'Air Conditioning', icon: 'Snowflake', category: 'comfort' },
-  { id: 'family', label: 'Family Friendly', icon: 'Users', category: 'convenience' },
-  { id: 'pets', label: 'Pet Friendly', icon: 'PawPrint', category: 'convenience' },
+  { id: 'freeCancellation', label: 'ui.freeCancellation', icon: 'ShieldCheck', category: 'convenience' },
+  { id: 'breakfast', label: 'ui.breakfastIncluded', icon: 'Coffee', category: 'dining' },
+  { id: 'pool', label: 'ui.swimmingPool', icon: 'SwimmingPool', category: 'recreation' },
+  { id: 'parking', label: 'ui.parking', icon: 'ParkingCircle', category: 'convenience' },
+  { id: 'wifi', label: 'ui.wifi', icon: 'Wifi', category: 'convenience' },
+  { id: 'ac', label: 'ui.airConditioning', icon: 'Snowflake', category: 'comfort' },
+  { id: 'family', label: 'ui.familyFriendly', icon: 'Users', category: 'convenience' },
+  { id: 'pets', label: 'ui.petFriendly', icon: 'PawPrint', category: 'convenience' },
 ];
 
 export const AMENITIES_LIST = [
-  { id: 'wifi', label: 'Free WiFi', icon: 'Wifi' },
-  { id: 'pool', label: 'Swimming Pool', icon: 'SwimmingPool' },
-  { id: 'spa', label: 'Spa & Wellness', icon: 'Sparkles' },
-  { id: 'gym', label: 'Fitness Center', icon: 'Dumbbell' },
-  { id: 'restaurant', label: 'Restaurant', icon: 'UtensilsCrossed' },
-  { id: 'bar', label: 'Bar & Lounge', icon: 'Wine' },
-  { id: 'parking', label: 'Free Parking', icon: 'ParkingCircle' },
-  { id: 'ac', label: 'Air Conditioning', icon: 'Snowflake' },
-  { id: 'breakfast', label: 'Breakfast Included', icon: 'Coffee' },
-  { id: 'pets', label: 'Pet Friendly', icon: 'PawPrint' },
-  { id: 'airport', label: 'Airport Shuttle', icon: 'Plane' },
-  { id: 'laundry', label: 'Laundry Service', icon: 'Shirt' },
+  { id: 'wifi', label: 'ui.freeWifi', icon: 'Wifi' },
+  { id: 'pool', label: 'ui.swimmingPool', icon: 'SwimmingPool' },
+  { id: 'spa', label: 'ui.spaWellness', icon: 'Sparkles' },
+  { id: 'gym', label: 'ui.fitnessCenter', icon: 'Dumbbell' },
+  { id: 'restaurant', label: 'ui.restaurant', icon: 'UtensilsCrossed' },
+  { id: 'bar', label: 'ui.barLounge', icon: 'Wine' },
+  { id: 'parking', label: 'ui.freeParking', icon: 'ParkingCircle' },
+  { id: 'ac', label: 'ui.airConditioning', icon: 'Snowflake' },
+  { id: 'breakfast', label: 'ui.breakfastIncluded', icon: 'Coffee' },
+  { id: 'pets', label: 'ui.petFriendly', icon: 'PawPrint' },
+  { id: 'airport', label: 'ui.airportShuttle', icon: 'Plane' },
+  { id: 'laundry', label: 'ui.laundryService', icon: 'Shirt' },
 ];
 
 export const PROPERTY_TYPES = [
-  { value: 'hotel', label: 'Hotel' },
-  { value: 'resort', label: 'Resort' },
-  { value: 'villa', label: 'Villa' },
-  { value: 'apartment', label: 'Apartment' },
-  { value: 'cottage', label: 'Cottage' },
-  { value: 'boutique', label: 'Boutique Hotel' },
+  { value: 'hotel', label: 'ui.hotel' },
+  { value: 'resort', label: 'ui.resort' },
+  { value: 'villa', label: 'ui.villa' },
+  { value: 'apartment', label: 'ui.apartment' },
+  { value: 'cottage', label: 'ui.cottage' },
+  { value: 'boutique', label: 'ui.boutiqueHotel' },
 ];
 
 export const PRICE_RANGES = [
@@ -120,4 +120,3 @@ export const BREAKPOINTS = {
   xl: 1280,
   '2xl': 1536,
 };
-

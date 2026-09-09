@@ -31,7 +31,7 @@ export default function DestinationDetails() {
           setHotels(destHotels);
         }
       } catch (error) {
-        toast.error('Failed to load destination');
+        toast.error(t('ui.failedLoad', { item: t('ui.destinationWord') }));
       } finally {
         setLoading(false);
       }
@@ -55,7 +55,7 @@ export default function DestinationDetails() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <EmptyState
-          title="Destination not found"
+          title={t('ui.destinationNotFound')}
           description="The destination you're looking for doesn't exist."
           actionLabel="Back to Home"
           onAction={() => navigate('/')}
@@ -105,7 +105,7 @@ export default function DestinationDetails() {
                   navigate(`/search?q=${encodeURIComponent(destination.name)}`);
                 }}
               >
-                View All Hotels
+                {t('ui.viewAllHotels')}
               </Button>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function DestinationDetails() {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <h2 className="text-3xl font-bold gradient-text mb-4">About {destination.name}</h2>
+          <h2 className="text-3xl font-bold gradient-text mb-4">{t('ui.aboutDestination')} {destination.name}</h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
             {destination.description}
           </p>
@@ -140,18 +140,18 @@ export default function DestinationDetails() {
         <div>
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-bold gradient-text">
-              Hotels in {destination.name}
+              {t('ui.hotelsIn')} {destination.name}
             </h2>
             <span className="text-gray-500">
-              {hotels.length} properties
+              {hotels.length} {t('ui.properties')}
             </span>
           </div>
 
           {hotels.length === 0 ? (
             <EmptyState
-              title="No hotels found"
-              description="We couldn't find any available hotels in this destination."
-              actionLabel="Explore Other Destinations"
+              title={t('ui.noHotelsFound')}
+              description={t('ui.noHotelsInDestination')}
+              actionLabel={t('ui.exploreOtherDestinations')}
               onAction={() => navigate('/')}
             />
           ) : (

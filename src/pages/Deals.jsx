@@ -21,7 +21,7 @@ export default function Deals() {
         const data = await api.getSpecialOffers();
         setOffers(data);
       } catch (error) {
-        toast.error('Failed to load deals');
+        toast.error(t('ui.failedLoad', { item: t('ui.dealsWord') }));
       } finally {
         setLoading(false);
       }
@@ -32,15 +32,15 @@ export default function Deals() {
   const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code);
     setCopied(code);
-    toast.success('Promo code copied!');
+    toast.success(t('ui.promoCopied'));
     setTimeout(() => setCopied(null), 2000);
   };
 
   const features = [
-    { icon: Percent, title: 'Best Price Guarantee', desc: 'Find a lower price and we will match it' },
-    { icon: Clock, title: 'Limited Time Offers', desc: 'Exclusive deals updated daily' },
-    { icon: Sparkles, title: 'Member Exclusive Deals', desc: 'Extra savings for registered members' },
-    { icon: Gift, title: 'Free Cancellation', desc: 'Flexible booking on selected deals' },
+    { icon: Percent, title: 'ui.bestPriceGuarantee', desc: 'ui.matchLowerPrice' },
+    { icon: Clock, title: 'ui.limitedOffers', desc: 'ui.dailyDeals' },
+    { icon: Sparkles, title: 'ui.memberDeals', desc: 'ui.memberSavings' },
+    { icon: Gift, title: 'ui.freeCancellation', desc: 'ui.flexibleBooking' },
   ];
 
   return (
@@ -69,13 +69,13 @@ export default function Deals() {
               className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white border border-white/20 mb-6"
             >
               <Tag className="w-4 h-4" />
-              Exclusive Deals &amp; Offers
+              {t('ui.exclusiveDealsOffers')}
             </motion.span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-              Save Big on Your Next Trip
+              {t('ui.saveBig')}
             </h1>
             <p className="text-xl text-white/80 mb-8">
-              Discover unbeatable offers on premium hotels, resorts, and experiences worldwide.
+              {t('ui.unbeatableOffers')}
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -88,8 +88,8 @@ export default function Deals() {
                   className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4"
                 >
                   <feature.icon className="w-6 h-6 text-yellow-300 mx-auto mb-2" />
-                  <div className="text-white font-semibold text-sm">{feature.title}</div>
-                  <div className="text-white/60 text-xs mt-1">{feature.desc}</div>
+                  <div className="text-white font-semibold text-sm">{t(feature.title)}</div>
+                  <div className="text-white/60 text-xs mt-1">{t(feature.desc)}</div>
                 </motion.div>
               ))}
             </div>
@@ -107,10 +107,10 @@ export default function Deals() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-              Hot Deals This Week
+              {t('ui.hotDeals')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Hand-picked offers with the biggest savings. Use the promo codes at checkout.
+              {t('ui.handPickedOffers')}
             </p>
           </motion.div>
 
@@ -119,8 +119,8 @@ export default function Deals() {
           ) : offers.length === 0 ? (
             <EmptyState
               icon={Gift}
-              title="No deals available"
-              description="Check back soon for new exclusive offers."
+              title={t('ui.noDealsAvailable')}
+              description={t('ui.checkBackOffers')}
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -141,7 +141,7 @@ export default function Deals() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold gradient-text mb-4">Active Promo Codes</h2>
+            <h2 className="text-4xl font-bold gradient-text mb-4">{t('ui.activePromoCodes')}</h2>
             <p className="text-gray-600 dark:text-gray-400">
               Copy a code and apply it at checkout for instant savings
             </p>

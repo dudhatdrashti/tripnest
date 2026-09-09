@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { STORAGE_KEYS, hashPassword } from '../constants';
 import { generateId } from '../utils/helpers';
+import i18n from '../utils/i18n';
 
 const AppContext = createContext();
 
@@ -245,6 +246,10 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.LANGUAGE, state.language);
+    if (i18n.language !== state.language) {
+      i18n.changeLanguage(state.language);
+    }
+    document.documentElement.lang = state.language;
   }, [state.language]);
 
   useEffect(() => {

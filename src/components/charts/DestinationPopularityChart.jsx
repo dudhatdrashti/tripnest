@@ -6,6 +6,7 @@ import {
   Cell,
   Tooltip,
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 const data = [
   { name: 'Paris', value: 400 },
@@ -21,6 +22,7 @@ const COLORS = ['#2563eb', '#d946ef', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4'
 const total = data.reduce((sum, d) => sum + d.value, 0);
 
 function CustomTooltip({ active, payload }) {
+  const { t } = useTranslation();
   if (!active || !payload?.length) return null;
   const entry = payload[0];
   const percent = ((entry.value / total) * 100).toFixed(1);
@@ -31,7 +33,7 @@ function CustomTooltip({ active, payload }) {
         {entry.name}
       </div>
       <div className="text-gray-500 dark:text-gray-400 text-xs mt-0.5">
-        {entry.value.toLocaleString()} bookings · {percent}%
+        {entry.value.toLocaleString()} {t('ui.bookings')} · {percent}%
       </div>
     </div>
   );

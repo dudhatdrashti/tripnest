@@ -53,7 +53,7 @@ export default function Hotels() {
         setHotels(results);
         setCurrentPage(1);
       } catch (error) {
-        toast.error('Failed to load hotels');
+        toast.error(t('ui.failedLoad', { item: t('ui.hotelsWord') }));
       } finally {
         setLoading(false);
       }
@@ -127,10 +127,10 @@ export default function Hotels() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Find Your Perfect Stay
+              {t('ui.findPerfectStay')}
             </h1>
             <p className="text-lg text-white/80 mb-8">
-              Browse our curated collection of world-class hotels, resorts, and villas.
+              {t('ui.browseHotelsDescription')}
             </p>
 
             {/* Search */}
@@ -139,9 +139,9 @@ export default function Hotels() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search hotels, cities, tags..."
+                placeholder={t('ui.searchHotelsCitiesTags')}
                 className="w-full px-6 py-4 pl-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all"
-                aria-label="Search hotels"
+                aria-label={t('ui.searchHotels')}
               />
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
               {query && (
@@ -149,7 +149,7 @@ export default function Hotels() {
                   type="button"
                   onClick={() => setQuery('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
-                  aria-label="Clear search"
+                  aria-label={t('ui.clearSearch')}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -182,7 +182,7 @@ export default function Hotels() {
               className="px-3 py-2 bg-white dark:bg-gray-800 rounded-xl shadow text-sm"
             >
               {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
               ))}
             </select>
           </div>
@@ -220,7 +220,7 @@ export default function Hotels() {
                   <button
                     onClick={() => setShowFilters(false)}
                     className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-                    aria-label="Close filters"
+                    aria-label={t('ui.closeFilters')}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -268,7 +268,7 @@ export default function Hotels() {
                   className="px-3 py-2 bg-white dark:bg-gray-800 rounded-xl shadow text-sm border border-gray-100 dark:border-gray-700"
                 >
                   {SORT_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                   ))}
                 </select>
               </div>
@@ -279,9 +279,9 @@ export default function Hotels() {
             ) : hotels.length === 0 ? (
               <EmptyState
                 icon={Building2}
-                title="No hotels found"
+                title={t('ui.noHotelsFound')}
                 description="Try adjusting your filters or search for a different property."
-                actionLabel="Clear Filters"
+                actionLabel={t('search.clearFilters')}
                 onAction={clearFilters}
               />
             ) : (

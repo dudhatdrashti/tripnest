@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 const WIDGET_KEY = 'tripnest_chat_position';
 
 const QUICK_REPLIES = [
-  { label: 'Find hotels', icon: '🏨' },
-  { label: 'Plan a trip', icon: '✈️' },
-  { label: 'Best destinations', icon: '🌍' },
-  { label: 'Travel tips', icon: '💡' },
+  { label: 'chat.findHotels', icon: '🏨' },
+  { label: 'chat.planTrip', icon: '✈️' },
+  { label: 'chat.bestDestinations', icon: '🌍' },
+  { label: 'chat.travelTips', icon: '💡' },
 ];
 
 function getBotReply(message, isAuthenticated, userName) {
@@ -123,7 +123,7 @@ export default function ChatWidget() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         className="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-2xl shadow-primary-500/40 cursor-grab active:cursor-grabbing"
-        aria-label="Open AI chat assistant"
+        aria-label={t('chat.open')}
         style={{ x: position.x && position.x !== 0 ? position.x : 0, y: position.y && position.y !== 0 ? position.y : 0 }}
       >
         <motion.div
@@ -151,7 +151,7 @@ export default function ChatWidget() {
                 <Bot className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <div className="font-semibold">Nestie — AI Assistant</div>
+                <div className="font-semibold">{t('ui.aiAssistant')}</div>
                 <div className="text-xs text-white/80 flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-green-300" />
                   Online · {isAuthenticated ? `Hi ${user?.name?.split(' ')[0] || 'there'}` : 'Guest mode'}
@@ -160,7 +160,7 @@ export default function ChatWidget() {
               <button
                 onClick={() => setOpen(false)}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                aria-label="Close chat"
+                aria-label={t('chat.close')}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -208,11 +208,11 @@ export default function ChatWidget() {
               {QUICK_REPLIES.map((qr) => (
                 <button
                   key={qr.label}
-                  onClick={() => handleSend(qr.label)}
+                  onClick={() => handleSend(t(qr.label))}
                   className="shrink-0 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs text-gray-700 dark:text-gray-300 hover:border-primary-400 hover:text-primary-500 transition-colors flex items-center gap-1.5"
                 >
                   <span>{qr.icon}</span>
-                  {qr.label}
+                  {t(qr.label)}
                 </button>
               ))}
             </div>
@@ -230,9 +230,9 @@ export default function ChatWidget() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask Nestie anything..."
+                  placeholder={t('chat.placeholder')}
                   className="flex-1 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
-                  aria-label="Chat message"
+                  aria-label={t('chat.message')}
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -240,7 +240,7 @@ export default function ChatWidget() {
                   type="submit"
                   className="p-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-accent-500 text-white disabled:opacity-60"
                   disabled={!input.trim()}
-                  aria-label="Send message"
+                  aria-label={t('chat.send')}
                 >
                   <Send className="w-4 h-4" />
                 </motion.button>
@@ -252,4 +252,3 @@ export default function ChatWidget() {
     </>
   );
 }
-

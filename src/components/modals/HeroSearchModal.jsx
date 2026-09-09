@@ -145,7 +145,7 @@ export default function HeroSearchModal({ open, onClose }) {
           className="fixed inset-0 z-[70] flex items-start justify-center p-4 pt-[8vh] sm:pt-[12vh]"
           role="dialog"
           aria-modal="true"
-          aria-label="Search"
+          aria-label={t('common.search')}
           onKeyDown={handleKeyDown}
         >
           {/* Backdrop */}
@@ -175,7 +175,7 @@ export default function HeroSearchModal({ open, onClose }) {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t('hero.searchDestination')}
                 className="flex-1 bg-transparent text-gray-800 dark:text-white text-base sm:text-lg placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-                aria-label="Search destinations or hotels"
+                aria-label={t('home.searchPlaceholder')}
               />
               {query && (
                 <button
@@ -184,7 +184,7 @@ export default function HeroSearchModal({ open, onClose }) {
                     setSuggestions({ hotels: [], destinations: [] });
                   }}
                   className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  aria-label="Clear search"
+                  aria-label={t('ui.clearSearch')}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -192,7 +192,7 @@ export default function HeroSearchModal({ open, onClose }) {
               <button
                 onClick={onClose}
                 className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Close search"
+                aria-label={t('ui.closeSearch')}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -204,7 +204,7 @@ export default function HeroSearchModal({ open, onClose }) {
               {loading && (
                 <div className="flex items-center gap-3 px-6 py-5 text-sm text-gray-500 dark:text-gray-400">
                   <Loader2 className="w-4 h-4 animate-spin text-primary-500" />
-                  Searching...
+                  {t('hero.searching')}
                 </div>
               )}
 

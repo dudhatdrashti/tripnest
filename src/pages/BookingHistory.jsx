@@ -55,7 +55,7 @@ export default function BookingHistory() {
   });
 
   const downloadReceipt = async (booking) => {
-    toast.success('Downloading receipt...');
+    toast.success(t('ui.downloadingReceipt'));
     const { jsPDF } = await import('jspdf');
     const { default: html2canvas } = await import('html2canvas');
 
@@ -78,19 +78,19 @@ export default function BookingHistory() {
 
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
       pdf.save(`TripNest-Booking-${booking.id}.pdf`);
-      toast.success('Receipt downloaded!');
+      toast.success(t('ui.receiptDownloaded'));
     } catch (error) {
-      toast.error('Failed to download receipt');
+      toast.error(t('ui.failedReceipt'));
     }
   };
 
   const handleCancel = async (bookingId) => {
     try {
       await api.cancelBooking(bookingId);
-      toast.success('Booking cancelled');
+      toast.success(t('ui.bookingCancelled'));
       window.location.reload();
     } catch (error) {
-      toast.error('Failed to cancel booking');
+      toast.error(t('ui.failedCancel'));
     }
   };
 
@@ -99,10 +99,10 @@ export default function BookingHistory() {
   };
 
   const tabs = [
-    { id: 'all', label: 'All' },
-    { id: 'confirmed', label: 'Upcoming' },
-    { id: 'completed', label: 'Past' },
-    { id: 'cancelled', label: 'Cancelled' },
+    { id: 'all', label: 'ui.all' },
+    { id: 'confirmed', label: 'ui.upcoming' },
+    { id: 'completed', label: 'ui.past' },
+    { id: 'cancelled', label: 'ui.cancelled' },
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function BookingHistory() {
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">{t('bookingHistory.title')}</h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Manage your trips and download receipts
+              {t('ui.manageTrips')}
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function BookingHistory() {
                   : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400'
               }`}
             >
-              {tab.label}
+              {t(tab.label)}
             </button>
           ))}
         </div>
@@ -139,9 +139,9 @@ export default function BookingHistory() {
         ) : filteredBookings.length === 0 ? (
           <EmptyState
             icon={Briefcase}
-            title="No bookings found"
-            description={activeTab === 'all' ? "You haven't made any bookings yet" : `No ${activeTab} bookings`}
-            actionLabel="Explore Hotels"
+            title={t('ui.noBookingsFound')}
+            description={activeTab === 'all' ? t('ui.noBookings') : t('ui.noBookingsFound')}
+            actionLabel={t('ui.exploreHotels')}
             onAction={() => (window.location.href = '/')}
           />
         ) : (
@@ -181,7 +181,7 @@ export default function BookingHistory() {
                           <Calendar className="w-4 h-4" />
                           {formatDate(booking.checkIn)} - {formatDate(booking.checkOut)}
                         </span>
-                        <span>{booking.guests} guests</span>
+                        <span>                        {booking.guests} {t('ui.guestsLabel').toLowerCase()}</span>
                         <span>{booking.hotel.room?.type || booking.room?.type}</span>
                       </div>
 
@@ -199,7 +199,7 @@ export default function BookingHistory() {
                                 onClick={() => handleCancel(booking.id)}
                                 icon={X}
                               >
-                                Cancel
+                                {t('ui.cancel')}
                               </Button>
                               <Button
                                 variant="primary"
@@ -207,7 +207,7 @@ export default function BookingHistory() {
                                 onClick={() => handleBookAgain(booking)}
                                 icon={RefreshCw}
                               >
-                                Book Again
+                                {t('ui.bookAgain')}
                               </Button>
                             </>
                           )}
@@ -217,7 +217,7 @@ export default function BookingHistory() {
                             onClick={() => downloadReceipt(booking)}
                             icon={Download}
                           >
-                            Receipt
+                            {t('ui.receipt')}
                           </Button>
                         </div>
                       </div>
@@ -229,10 +229,10 @@ export default function BookingHistory() {
                     <div className="flex justify-between mb-6 pb-6 border-b">
                       <div>
                         <h2 className="text-2xl font-bold text-primary-500">TripNest</h2>
-                        <p className="text-sm text-gray-500">Booking Receipt</p>
+                        <p className="text-sm text-gray-500">{t('ui.bookingReceipt')}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium">Booking ID</p>
+                        <p className="text-sm font-medium">{t('ui.bookingId')}</p>
                         <p className="text-gray-500 text-sm">#{booking.id}</p>
                       </div>
                     </div>
@@ -241,12 +241,12 @@ export default function BookingHistory() {
                       <p className="text-gray-500">
                         {booking.hotel.location.city}, {booking.hotel.location.country}
                       </p>
-                      <p>Check-in: {formatDate(booking.checkIn)}</p>
-                      <p>Check-out: {formatDate(booking.checkOut)}</p>
-                      <p>Guests: {booking.guests}</p>
-                      <p>Guest: {booking.guestName}</p>
+                      <p>{t('ui.checkInLabel')}: {formatDate(booking.checkIn)}</p>
+                      <p>{t('ui.checkOutLabel')}: {formatDate(booking.checkOut)}</p>
+                      <p>{t('ui.guestsLabel')}: {booking.guests}</p>
+                      <p>{t('ui.guestLabel')}: {booking.guestName}</p>
                       <div className="border-t pt-3 flex justify-between items-center">
-                        <span className="font-semibold">Total</span>
+                        <span className="font-semibold">{t('ui.total')}</span>
                         <span className="text-2xl font-bold text-primary-500">
                           {formatPrice(booking.priceBreakdown?.total || booking.hotel.price, booking.currency)}
                         </span>

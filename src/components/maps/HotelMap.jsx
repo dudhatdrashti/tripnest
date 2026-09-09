@@ -2,6 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import { Hotel, UtensilsCrossed, Landmark } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import 'leaflet/dist/leaflet.css';
 
 const createIcon = (color, IconComponent) => {
@@ -27,6 +28,7 @@ const attractionIcon = createIcon('#ef4444');
 const restaurantIcon = createIcon('#22c55e');
 
 export default function HotelMap({ hotel }) {
+  const { t } = useTranslation();
   const [lat, lng] = hotel.location.coordinates;
 
   const attractions = hotel.nearbyAttractions.map((a, i) => ({
@@ -70,7 +72,7 @@ export default function HotelMap({ hotel }) {
                 <Landmark className="w-4 h-4 text-red-500" />
                 <span className="font-medium">{attraction.name}</span>
               </div>
-              <p className="text-sm text-gray-600">{attraction.distance} away</p>
+              <p className="text-sm text-gray-600">{attraction.distance} {t('ui.away')}</p>
             </Popup>
           </Marker>
         ))}

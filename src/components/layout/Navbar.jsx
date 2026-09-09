@@ -47,17 +47,17 @@ const navLinks = [
 ];
 
 const destinationsDropdown = [
-  { label: 'Popular Destinations', desc: 'Explore top picks', icon: Umbrella, to: '/destinations' },
-  { label: 'Beach Escapes', desc: 'Tropical paradises', icon: Umbrella, to: '/destinations' },
-  { label: 'Mountain Retreats', desc: 'High-altitude wonders', icon: MapPin, to: '/destinations' },
-  { label: 'City Breaks', desc: 'Urban adventures', icon: Building2, to: '/destinations' },
+  { label: 'ui.popularDestinations', desc: 'ui.exploreTopPicks', icon: Umbrella, to: '/destinations' },
+  { label: 'ui.beachEscapes', desc: 'ui.tropicalParadises', icon: Umbrella, to: '/destinations' },
+  { label: 'ui.mountainRetreats', desc: 'ui.highAltitudeWonders', icon: MapPin, to: '/destinations' },
+  { label: 'ui.cityBreaks', desc: 'ui.urbanAdventures', icon: Building2, to: '/destinations' },
 ];
 
 const hotelsDropdown = [
-  { label: 'All Hotels', desc: 'Browse our collection', icon: Hotel, to: '/hotels' },
-  { label: 'Luxury Resorts', desc: 'Five-star indulgence', icon: Sparkles, to: '/hotels' },
-  { label: 'Boutique Hotels', desc: 'Unique stays', icon: BedDouble, to: '/hotels' },
-  { label: 'Vacation Villas', desc: 'Private getaways', icon: Umbrella, to: '/hotels' },
+  { label: 'ui.allHotels', desc: 'ui.browseCollection', icon: Hotel, to: '/hotels' },
+  { label: 'ui.luxuryResorts', desc: 'ui.fiveStarIndulgence', icon: Sparkles, to: '/hotels' },
+  { label: 'ui.boutiqueHotels', desc: 'ui.uniqueStays', icon: BedDouble, to: '/hotels' },
+  { label: 'ui.vacationVillas', desc: 'ui.privateGetaways', icon: Umbrella, to: '/hotels' },
 ];
 
 const profileDropdown = [
@@ -187,7 +187,7 @@ export default function Navbar() {
             <div className="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
               {t(item.label)}
             </div>
-            <div className="text-xs text-gray-400 mt-0.5">{item.desc}</div>
+            <div className="text-xs text-gray-400 mt-0.5">{t(item.desc)}</div>
           </div>
         </Link>
       ))}
@@ -212,7 +212,7 @@ export default function Navbar() {
           onClick={() => dispatch({ type: 'MARK_ALL_NOTIFICATIONS_READ' })}
           className="text-xs text-primary-500 hover:text-primary-600 font-medium"
         >
-          Mark all read
+          {t('ui.markAllRead')}
         </button>
       </div>
       <div className="p-6 text-center">
@@ -220,9 +220,9 @@ export default function Navbar() {
           <CheckCircle2 className="w-7 h-7 text-white" />
         </div>
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          You're all caught up!
+          {t('ui.allCaughtUp')}
         </p>
-        <p className="text-xs text-gray-400 mt-1">New notifications will appear here</p>
+        <p className="text-xs text-gray-400 mt-1">{t('ui.newNotifications')}</p>
       </div>
     </motion.div>
   );
@@ -245,7 +245,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
             <Link
               to="/"
               className="flex items-center gap-3 shrink-0 group nav-link"
-              aria-label="TripNest Home"
+              aria-label={t('ui.tripNestHome')}
             >
               <motion.div
                 whileHover={{ rotate: 360, scale: 1.08 }}
@@ -269,7 +269,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
             {/* Desktop Centered Nav */}
             <nav
               className="hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2"
-              aria-label="Main navigation"
+              aria-label={t('ui.mainNavigation')}
               ref={dropdownRef}
             >
               {navLinks.map((link) => {
@@ -287,7 +287,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                               ? 'text-primary-600 dark:text-primary-400'
                               : scrolled
                               ? 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100/70 dark:hover:bg-gray-800/60'
-                              : 'text-gray-700 dark:text-gray-300 hover:text-white dark:hover:text-primary-400 hover:bg-white/10'
+                              : 'text-white/90 dark:text-white/90 hover:text-white dark:hover:text-primary-400 hover:bg-white/10'
                           }`}
                           aria-expanded={openDropdown === link.dropdown}
                         >
@@ -325,7 +325,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                             ? 'text-primary-600 dark:text-primary-400'
                             : scrolled
                             ? 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100/70 dark:hover:bg-gray-800/60'
-                            : 'text-gray-700 dark:text-gray-300 hover:text-white dark:hover:text-primary-400 hover:bg-white/10'
+                            : 'text-white/90 dark:text-white/90 hover:text-white dark:hover:text-primary-400 hover:bg-white/10'
                         }`}
                       >
                         <Icon className="w-4 h-4" />
@@ -350,9 +350,9 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSearchModalOpen(true)}
                 className={`p-2 rounded-xl transition-all duration-200 nav-btn ${scrolled ? 'hover:bg-gray-100/80 dark:hover:bg-gray-800/70' : 'hover:bg-white/10'}`}
-                aria-label="Open search"
+                aria-label={t('ui.openSearch')}
               >
-                <Search className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}`} />
+                <Search className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}`} />
               </motion.button>
 
 {/* Language Selector */}
@@ -360,11 +360,11 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 <button
                   onClick={() => setShowLangMenu(!showLangMenu)}
                   className={`p-2 rounded-xl transition-all duration-200 nav-btn flex items-center gap-1.5 ${scrolled ? 'hover:bg-gray-100/80 dark:hover:bg-gray-800/70' : 'hover:bg-white/10'}`}
-                  aria-label="Change language"
+                  aria-label={t('ui.changeLanguage')}
                   aria-expanded={showLangMenu}
                 >
-                  <Globe className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}`} />
-                  <span className="text-xs font-semibold uppercase text-gray-600 dark:text-gray-300">
+                  <Globe className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}`} />
+                  <span className={`text-xs font-semibold uppercase ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}`}>
                     {language}
                   </span>
                 </button>
@@ -401,13 +401,13 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 <button
                   onClick={() => setShowCurrencyMenu(!showCurrencyMenu)}
                   className={`p-2 rounded-xl transition-all duration-200 text-sm font-medium flex items-center gap-1.5 nav-btn ${scrolled ? 'hover:bg-gray-100/80 dark:hover:bg-gray-800/70' : 'hover:bg-white/10'}`}
-                  aria-label="Change currency"
+                  aria-label={t('ui.changeCurrency')}
                   aria-expanded={showCurrencyMenu}
                 >
                   <span className="text-primary-500 font-semibold">
                     {CURRENCIES[currency]?.symbol}
                   </span>
-                  <span className={scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}>
+                  <span className={scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}>
                     {currency}
                   </span>
                 </button>
@@ -444,7 +444,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 whileTap={{ scale: 0.95 }}
                 onClick={() => dispatch({ type: 'TOGGLE_DARK_MODE' })}
                 className={`p-2 rounded-xl transition-all duration-200 nav-btn ${scrolled ? 'hover:bg-gray-100/80 dark:hover:bg-gray-800/70' : 'hover:bg-white/10'}`}
-                aria-label="Toggle dark mode"
+                aria-label={t('ui.toggleDarkMode')}
               >
                 <AnimatePresence mode="wait">
                   {darkMode ? (
@@ -465,7 +465,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Moon className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600' : 'text-gray-700'}`} />
+                      <Moon className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600' : 'text-white/90'}`} />
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -476,9 +476,9 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 <Link
                   to="/wishlist"
                   className={`relative p-2 rounded-xl transition-colors inline-flex ${scrolled ? 'hover:bg-gray-100 dark:hover:bg-gray-800' : 'hover:bg-white/10'}`}
-                  aria-label="Wishlist"
+                  aria-label={t('nav.wishlist')}
                 >
-<Heart className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}`} />
+<Heart className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}`} />
                   {wishlist.length > 0 && (
                     <motion.span
                       initial={{ scale: 0 }}
@@ -498,10 +498,10 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowNotifications(!showNotifications)}
                   className={`relative p-2 rounded-xl transition-colors ${scrolled ? 'hover:bg-gray-100 dark:hover:bg-gray-800' : 'hover:bg-white/10'}`}
-                  aria-label="Notifications"
+                  aria-label={t('nav.notifications')}
                   aria-expanded={showNotifications}
                 >
-<Bell className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}`} />
+<Bell className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/90'}`} />
                   {unreadNotifications > 0 && (
                     <motion.span
                       initial={{ scale: 0 }}
@@ -525,7 +525,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
                     className="flex items-center gap-2 p-1.5 rounded-xl transition-colors"
-                    aria-label="Profile menu"
+                    aria-label={t('ui.profileMenu')}
                     aria-expanded={showProfileMenu}
                   >
                     <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-400 to-accent-400 flex items-center justify-center text-sm font-bold text-white shadow-md shadow-primary-500/20 ring-2 ring-white/40 dark:ring-white/10">
@@ -614,7 +614,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`lg:hidden p-2 rounded-xl transition-all duration-200 nav-btn ${scrolled ? 'hover:bg-gray-100/80 dark:hover:bg-gray-800/70' : 'hover:bg-white/10'}`}
-                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-label={mobileMenuOpen ? t('ui.closeMenu') : t('ui.openMenu')}
               >
                 {mobileMenuOpen ? (
                   <X className={`w-[18px] h-[18px] ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-300'}`} />
@@ -653,7 +653,7 @@ className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
               </button>
 
               {/* Nav Links */}
-              <nav className="space-y-1" aria-label="Mobile navigation">
+              <nav className="space-y-1" aria-label={t('ui.mobileNavigation')}>
                 {navLinks.map((link) => {
                   const active = isActive(link);
                   const Icon = link.icon;

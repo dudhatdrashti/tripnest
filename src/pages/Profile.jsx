@@ -184,7 +184,7 @@ export default function Profile() {
 
   const handleRemoveWishlist = (id) => {
     dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: id });
-    toast.success('Removed from wishlist');
+    toast.success(t('ui.removedWishlist'));
   };
 
   const handleAddSavedDestination = (id) => {
@@ -194,20 +194,20 @@ export default function Profile() {
         const next = current.filter((d) => d !== id);
         localStorage.setItem('tripnest_saved_destinations', JSON.stringify(next));
         setSavedDestinations(allDestinations.filter((d) => next.includes(d.id)));
-        toast.success('Destination removed from saved');
+        toast.success(t('ui.destinationRemoved'));
       } else {
         const next = [...current, id];
         localStorage.setItem('tripnest_saved_destinations', JSON.stringify(next));
         setSavedDestinations(allDestinations.filter((d) => next.includes(d.id)));
-        toast.success('Destination saved');
+        toast.success(t('ui.destinationSaved'));
       }
     } catch {
-      toast.error('Could not update saved destinations');
+      toast.error(t('ui.savedUpdateFailed'));
     }
   };
 
   const downloadReceipt = async (booking) => {
-    toast.success('Downloading receipt...');
+    toast.success(t('ui.downloadingReceipt'));
     try {
       const { jsPDF } = await import('jspdf');
       const { default: html2canvas } = await import('html2canvas');
@@ -218,9 +218,9 @@ export default function Profile() {
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: [canvas.width / 2, canvas.height / 2] });
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
       pdf.save(`TripNest-Booking-${booking.id}.pdf`);
-      toast.success('Receipt downloaded!');
+      toast.success(t('ui.receiptDownloaded'));
     } catch {
-      toast.error('Failed to download receipt');
+      toast.error(t('ui.failedReceipt'));
     }
   };
 
@@ -229,42 +229,42 @@ export default function Profile() {
   // ---------- STAT CARDS ----------
   const statCards = [
     {
-      label: 'Total Trips',
+      label: t('ui.totalTrips'),
       value: bookings.length,
       icon: Plane,
       gradient: 'from-blue-500 to-indigo-500',
       shadow: 'shadow-blue-500/30',
     },
     {
-      label: 'Upcoming',
+      label: t('ui.upcoming'),
       value: upcomingBookings.length,
       icon: Calendar,
       gradient: 'from-emerald-500 to-teal-500',
       shadow: 'shadow-emerald-500/30',
     },
     {
-      label: 'Wishlist',
+      label: t('nav.wishlist'),
       value: wishlist.length,
       icon: Heart,
       gradient: 'from-rose-500 to-pink-500',
       shadow: 'shadow-rose-500/30',
     },
     {
-      label: 'Saved Destinations',
+      label: t('ui.savedDestinationsTab'),
       value: savedDestinations.length,
       icon: Compass,
       gradient: 'from-violet-500 to-purple-500',
       shadow: 'shadow-violet-500/30',
     },
     {
-      label: 'Reviews',
+      label: t('ui.reviews'),
       value: 4,
       icon: Star,
       gradient: 'from-amber-500 to-orange-500',
       shadow: 'shadow-amber-500/30',
     },
     {
-      label: 'Reward Points',
+      label: t('ui.rewardPoints'),
       value: rewardPoints,
       icon: Gift,
       gradient: 'from-fuchsia-500 to-pink-500',
@@ -321,7 +321,7 @@ export default function Profile() {
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{profile.name}</h1>
               <Badge variant="primary">
-                <Award className="w-3 h-3" /> VIP Member
+                <Award className="w-3 h-3" /> {t('ui.vipMember')}
               </Badge>
             </div>
             <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5 flex items-center gap-1.5">
@@ -334,13 +334,13 @@ export default function Profile() {
                 </span>
               )}
               <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" /> Member since {formatDate(profile.memberSince)}
+                <Calendar className="w-3.5 h-3.5" /> {t('ui.memberSince')} {formatDate(profile.memberSince)}
               </span>
             </div>
           </div>
           <div className="flex gap-2 sm:pb-1">
 <Button variant="secondary" size="sm" onClick={() => setActiveTabIndex(5)}>
-              <Settings className="w-4 h-4" /> Edit Profile
+              <Settings className="w-4 h-4" /> {t('ui.editProfile')}
             </Button>
           </div>
         </div>
@@ -356,36 +356,36 @@ export default function Profile() {
         <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-              <Plane className="w-4 h-4 text-primary-500" /> Upcoming Trip
+              <Plane className="w-4 h-4 text-primary-500" /> {t('ui.upcomingTrip')}
             </h3>
             {upcomingBookings.length > 0 && (
               <Link to="/bookings" className="text-xs text-primary-500 hover:underline flex items-center gap-0.5">
-                View all <ChevronRight className="w-3 h-3" />
+                {t('common.viewAll')} <ChevronRight className="w-3 h-3" />
               </Link>
             )}
           </div>
           {upcomingBookings.length > 0 ? (
             <UpcomingTripCard booking={upcomingBookings[0]} />
           ) : (
-            <EmptyState icon={Plane} title="No upcoming trips" description="Start planning your next adventure" actionLabel="Explore Hotels" onAction={() => (window.location.href = '/')} />
+            <EmptyState icon={Plane} title={t('ui.noUpcomingTrips')} description={t('ui.planAdventure')} actionLabel={t('ui.exploreHotels')} onAction={() => (window.location.href = '/')} />
           )}
         </motion.div>
 
         <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-emerald-500" /> Recent Booking
+              <Briefcase className="w-4 h-4 text-emerald-500" /> {t('ui.recentBooking')}
             </h3>
             {bookings.length > 0 && (
               <Link to="/bookings" className="text-xs text-primary-500 hover:underline flex items-center gap-0.5">
-                View all <ChevronRight className="w-3 h-3" />
+                {t('common.viewAll')} <ChevronRight className="w-3 h-3" />
               </Link>
             )}
           </div>
           {bookings.length > 0 ? (
             <UpcomingTripCard booking={bookings[0]} />
           ) : (
-            <EmptyState icon={Briefcase} title="No bookings yet" description="Your recent bookings will appear here" actionLabel="Book Now" onAction={() => (window.location.href = '/')} />
+            <EmptyState icon={Briefcase} title={t('ui.noBookings')} description={t('ui.recentBookings')} actionLabel={t('ui.bookNow')} onAction={() => (window.location.href = '/')} />
           )}
         </motion.div>
       </div>
@@ -393,11 +393,11 @@ export default function Profile() {
       {/* Charts */}
       <motion.div variants={item} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Your Booking Statistics</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">{t('ui.bookingStatistics')}</h3>
           <BookingStatisticsChart />
         </div>
         <div className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Destination Popularity</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">{t('ui.destinationPopularity')}</h3>
           <DestinationPopularityChart />
         </div>
       </motion.div>
@@ -405,7 +405,7 @@ export default function Profile() {
       {/* Recent activity */}
       <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-          <History className="w-4 h-4 text-violet-500" /> Recent Activity
+          <History className="w-4 h-4 text-violet-500" /> {t('ui.recentActivity')}
         </h3>
         {recentActivity.length > 0 ? (
           <div className="space-y-3">
@@ -425,7 +425,7 @@ export default function Profile() {
             })}
           </div>
         ) : (
-          <p className="text-sm text-gray-400 py-6 text-center">No recent activity yet</p>
+          <p className="text-sm text-gray-400 py-6 text-center">{t('ui.noRecentActivity')}</p>
         )}
       </motion.div>
 
@@ -433,7 +433,7 @@ export default function Profile() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <motion.div variants={item} className="lg:col-span-2 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-accent-500" /> Recommended Destinations
+            <Sparkles className="w-4 h-4 text-accent-500" /> {t('ui.recommendedDestinations')}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {allDestinations.slice(0, 4).map((dest, i) => (
@@ -451,14 +451,14 @@ export default function Profile() {
 
         <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-amber-500" /> Travel Achievements
+            <Trophy className="w-4 h-4 text-amber-500" /> {t('ui.travelAchievements')}
           </h3>
           <div className="space-y-3">
             {[
-              { icon: Plane, label: `${bookings.length} Trips Booked`, done: bookings.length > 0, color: 'from-blue-500 to-indigo-500' },
-              { icon: Compass, label: `${savedDestinations.length} Destinations Saved`, done: savedDestinations.length > 0, color: 'from-violet-500 to-purple-500' },
-              { icon: Heart, label: `${wishlist.length} Hotels in Wishlist`, done: wishlist.length >= 3, color: 'from-rose-500 to-pink-500' },
-              { icon: Star, label: 'First Review', done: true, color: 'from-amber-500 to-orange-500' },
+              { icon: Plane, label: t('ui.tripsBooked', { count: bookings.length }), done: bookings.length > 0, color: 'from-blue-500 to-indigo-500' },
+              { icon: Compass, label: t('ui.destinationsSaved', { count: savedDestinations.length }), done: savedDestinations.length > 0, color: 'from-violet-500 to-purple-500' },
+              { icon: Heart, label: t('ui.hotelsWishlist', { count: wishlist.length }), done: wishlist.length >= 3, color: 'from-rose-500 to-pink-500' },
+              { icon: Star, label: t('ui.firstReview'), done: true, color: 'from-amber-500 to-orange-500' },
             ].map((a, i) => {
               const Icon = a.icon;
               return (
@@ -491,9 +491,9 @@ export default function Profile() {
   // ---------- BOOKINGS ----------
   const bookingsTab = (
     <div className="space-y-8">
-      <BookingSection title="Upcoming Bookings" bookings={upcomingBookings} icon={Calendar} emptyText="No upcoming bookings" onDownload={downloadReceipt} />
-      <BookingSection title="Past Bookings" bookings={pastBookings} icon={History} emptyText="No past bookings" onDownload={downloadReceipt} />
-      <BookingSection title="Cancelled" bookings={cancelledBookings} icon={X} emptyText="No cancelled bookings" onDownload={downloadReceipt} />
+      <BookingSection title={t('ui.upcomingBookings')} bookings={upcomingBookings} icon={Calendar} emptyText={t('ui.noUpcomingBookings')} onDownload={downloadReceipt} />
+      <BookingSection title={t('ui.pastBookings')} bookings={pastBookings} icon={History} emptyText={t('ui.noPastBookings')} onDownload={downloadReceipt} />
+      <BookingSection title={t('ui.cancelled')} bookings={cancelledBookings} icon={X} emptyText={t('ui.noCancelledBookings')} onDownload={downloadReceipt} />
     </div>
   );
 
@@ -506,7 +506,7 @@ export default function Profile() {
             <motion.div key={hotel.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700 flex flex-col">
               <div className="relative h-40">
                 <img src={hotel.images[0]} alt={hotel.name} className="w-full h-full object-cover" loading="lazy" />
-                <button onClick={() => handleRemoveWishlist(hotel.id)} className="absolute top-3 right-3 p-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur rounded-full hover:bg-red-500 hover:text-white transition-colors" aria-label="Remove from wishlist">
+                <button onClick={() => handleRemoveWishlist(hotel.id)} className="absolute top-3 right-3 p-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur rounded-full hover:bg-red-500 hover:text-white transition-colors" aria-label={t('ui.removeFromWishlist')}>
                   <Heart className="w-4 h-4 fill-red-500 text-red-500" />
                 </button>
               </div>
@@ -523,9 +523,9 @@ export default function Profile() {
                 <div className="mt-auto pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
                   <PriceDisplay price={hotel.price} showPerNight={false} />
                   <div className="flex gap-2">
-                    <Link to={`/hotel/${hotel.id}`} className="text-xs font-medium text-primary-500 hover:underline">View</Link>
+                    <Link to={`/hotel/${hotel.id}`} className="text-xs font-medium text-primary-500 hover:underline">{t('ui.view')}</Link>
                     <Link to={`/booking/${hotel.id}`} className="text-xs font-semibold text-white bg-gradient-to-r from-primary-500 to-accent-500 px-3 py-1.5 rounded-lg">
-                      Book Now
+                      {t('ui.bookNow')}
                     </Link>
                   </div>
                 </div>
@@ -534,7 +534,7 @@ export default function Profile() {
           ))}
         </div>
       ) : (
-        <EmptyState icon={Heart} title="Your wishlist is empty" description="Save hotels you love and find them here" actionLabel="Explore Hotels" onAction={() => (window.location.href = '/')} />
+        <EmptyState icon={Heart} title={t('ui.wishlistEmpty')} description={t('ui.saveHotels')} actionLabel={t('ui.exploreHotels')} onAction={() => (window.location.href = '/')} />
       )}
     </div>
   );
@@ -550,7 +550,7 @@ export default function Profile() {
               <button
                 onClick={() => handleAddSavedDestination(dest.id)}
                 className="absolute top-3 right-3 z-10 p-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur rounded-full hover:bg-red-500 hover:text-white transition-colors"
-                aria-label="Remove saved destination"
+                aria-label={t('ui.removeSavedDestination')}
               >
                 <Heart className="w-4 h-4 fill-red-500 text-red-500" />
               </button>
@@ -558,7 +558,7 @@ export default function Profile() {
           ))}
         </div>
       ) : (
-        <EmptyState icon={Compass} title="No saved destinations" description="Save destinations you want to visit" actionLabel="Explore Destinations" onAction={() => (window.location.href = '/destinations')} />
+        <EmptyState icon={Compass} title={t('ui.savedDestinations')} description={t('ui.saveDestinations')} actionLabel={t('ui.exploreDestinations')} onAction={() => (window.location.href = '/destinations')} />
       )}
     </div>
   );
@@ -616,7 +616,7 @@ export default function Profile() {
           })}
         </div>
       ) : (
-        <EmptyState icon={Bell} title="No notifications" description="You're all caught up" />
+        <EmptyState icon={Bell} title={t('ui.noNotifications')} description={t('ui.allCaughtUp')} />
       )}
     </div>
   );
@@ -627,15 +627,15 @@ export default function Profile() {
       {/* Profile Settings */}
       <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-          <User className="w-4 h-4 text-primary-500" /> Profile Settings
+          <User className="w-4 h-4 text-primary-500" /> {t('ui.profileSettings')}
         </h3>
         <div className="space-y-4">
-          <Input label="Full Name" icon={User} value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} />
-          <Input label="Email" icon={Mail} type="email" value={profile.email} disabled />
-          <Input label="Phone" icon={Phone} value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} />
-          <Input label="Location" icon={MapPin} value={profile.location} onChange={(e) => setProfile({ ...profile, location: e.target.value })} />
+          <Input label={t('auth.fullName')} icon={User} value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} />
+          <Input label={t('auth.email')} icon={Mail} type="email" value={profile.email} disabled />
+          <Input label={t('auth.phone')} icon={Phone} value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} />
+          <Input label={t('auth.location')} icon={MapPin} value={profile.location} onChange={(e) => setProfile({ ...profile, location: e.target.value })} />
           <Button variant="primary" onClick={handleSaveProfile}>
-            Save Changes
+            {t('ui.saveChanges')}
           </Button>
         </div>
       </motion.div>
@@ -643,13 +643,13 @@ export default function Profile() {
       {/* Change Password */}
       <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-          <KeyRound className="w-4 h-4 text-emerald-500" /> Change Password
+          <KeyRound className="w-4 h-4 text-emerald-500" /> {t('auth.changePassword')}
         </h3>
         <div className="space-y-4">
-          <Input label="Current Password" icon={Lock} type="password" id="currentPassword" />
-          <Input label="New Password" icon={Lock} type="password" id="newPassword" />
-          <Button variant="secondary" onClick={() => toast.success('Password settings coming soon')}>
-            Update Password
+          <Input label={t('auth.currentPassword')} icon={Lock} type="password" id="currentPassword" />
+          <Input label={t('auth.newPassword')} icon={Lock} type="password" id="newPassword" />
+          <Button variant="secondary" onClick={() => toast.success(t('ui.passwordSoon'))}>
+            {t('ui.updatePassword')}
           </Button>
         </div>
       </motion.div>
@@ -657,7 +657,7 @@ export default function Profile() {
       {/* Preferences */}
       <motion.div variants={item} className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-          <Settings className="w-4 h-4 text-violet-500" /> Preferences
+          <Settings className="w-4 h-4 text-violet-500" /> {t('ui.preferences')}
         </h3>
 
         {/* Dark Mode */}
@@ -665,11 +665,11 @@ export default function Profile() {
           <div className="flex items-center gap-3">
             {darkMode ? <Moon className="w-5 h-5 text-primary-500" /> : <Sun className="w-5 h-5 text-yellow-500" />}
             <div>
-              <p className="font-medium text-gray-800 dark:text-gray-200">Dark Mode</p>
-              <p className="text-sm text-gray-500">Toggle dark theme</p>
+              <p className="font-medium text-gray-800 dark:text-gray-200">{t('ui.darkMode')}</p>
+              <p className="text-sm text-gray-500">{t('ui.toggleDarkTheme')}</p>
             </div>
           </div>
-          <button onClick={toggleDarkMode} className="relative w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors" aria-label="Toggle dark mode">
+          <button onClick={toggleDarkMode} className="relative w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors" aria-label={t('ui.toggleDarkMode')}>
             <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-all ${darkMode ? 'left-6' : 'left-0.5'}`} />
           </button>
         </div>
@@ -679,8 +679,8 @@ export default function Profile() {
           <div className="flex items-center gap-3">
             <Globe className="w-5 h-5 text-primary-500" />
             <div>
-              <p className="font-medium text-gray-800 dark:text-gray-200">Language</p>
-              <p className="text-sm text-gray-500">Select your preferred language</p>
+              <p className="font-medium text-gray-800 dark:text-gray-200">{t('ui.language')}</p>
+              <p className="text-sm text-gray-500">{t('ui.selectLanguage')}</p>
             </div>
           </div>
           <select value={language} onChange={(e) => setLanguage(e.target.value)} className="px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm">
@@ -695,8 +695,8 @@ export default function Profile() {
           <div className="flex items-center gap-3">
             <CreditCard className="w-5 h-5 text-primary-500" />
             <div>
-              <p className="font-medium text-gray-800 dark:text-gray-200">Currency</p>
-              <p className="text-sm text-gray-500">Select your preferred currency</p>
+              <p className="font-medium text-gray-800 dark:text-gray-200">{t('ui.currency')}</p>
+              <p className="text-sm text-gray-500">{t('ui.selectCurrency')}</p>
             </div>
           </div>
           <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm">
@@ -712,12 +712,12 @@ export default function Profile() {
           <div className="flex items-center gap-3">
             <Bell className="w-5 h-5 text-primary-500" />
             <div>
-              <p className="font-medium text-gray-800 dark:text-gray-200">Notifications</p>
-              <p className="text-sm text-gray-500">Manage notification preferences</p>
+              <p className="font-medium text-gray-800 dark:text-gray-200">{t('ui.notifications')}</p>
+              <p className="text-sm text-gray-500">{t('ui.manageNotifications')}</p>
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={() => toast.success('Notification preferences updated')}>
-            Manage
+          <Button variant="outline" size="sm" onClick={() => toast.success(t('ui.notificationsUpdated'))}>
+            {t('ui.manage')}
           </Button>
         </div>
       </motion.div>
@@ -732,12 +732,12 @@ export default function Profile() {
   );
 
   const tabs = [
-    { label: 'Overview', content: overviewTab },
-    { label: 'Bookings', content: bookingsTab },
-    { label: 'Wishlist', content: wishlistTab },
-    { label: 'Saved Destinations', content: destinationsTab },
-    { label: 'Notifications', content: notificationsTab },
-    { label: 'Settings', content: settingsTab },
+    { label: t('ui.overview'), content: overviewTab },
+    { label: t('ui.bookings'), content: bookingsTab },
+    { label: t('nav.wishlist'), content: wishlistTab },
+    { label: t('ui.savedDestinationsTab'), content: destinationsTab },
+    { label: t('ui.notificationsTab'), content: notificationsTab },
+    { label: t('ui.settingsTab'), content: settingsTab },
   ];
 
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -870,10 +870,10 @@ function BookingSection({ title, bookings: list, icon: Icon, emptyText, onDownlo
                 <div className="flex justify-between mb-6 pb-6 border-b">
                   <div>
                     <h2 className="text-2xl font-bold text-primary-500">TripNest</h2>
-                    <p className="text-sm text-gray-500">Booking Receipt</p>
+                    <p className="text-sm text-gray-500">{t('ui.bookingReceipt')}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium">Booking ID</p>
+                    <p className="text-sm font-medium">{t('ui.bookingId')}</p>
                     <p className="text-gray-500 text-sm">#{booking.id}</p>
                   </div>
                 </div>
@@ -885,7 +885,7 @@ function BookingSection({ title, bookings: list, icon: Icon, emptyText, onDownlo
                   <p>Guests: {booking.guests}</p>
                   <p>Guest: {booking.guestName}</p>
                   <div className="border-t pt-3 flex justify-between items-center">
-                    <span className="font-semibold">Total</span>
+                    <span className="font-semibold">{t('ui.total')}</span>
                     <span className="text-2xl font-bold text-primary-500">
                       {formatPrice(booking.priceBreakdown?.total || booking.hotel?.price || 0, booking.currency)}
                     </span>
@@ -896,7 +896,7 @@ function BookingSection({ title, bookings: list, icon: Icon, emptyText, onDownlo
           ))}
         </div>
       ) : (
-        <EmptyState icon={Icon} title={emptyText} description="Bookings will appear here" />
+        <EmptyState icon={Icon} title={emptyText} description={t('ui.bookingsAppear')} />
       )}
     </div>
   );

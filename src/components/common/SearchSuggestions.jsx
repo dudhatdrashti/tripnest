@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Clock, Loader2, SearchX } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function SearchSuggestions({
   show,
@@ -10,6 +11,7 @@ export default function SearchSuggestions({
   onSelect,
   onClearRecent,
 }) {
+  const { t } = useTranslation();
   return (
     <AnimatePresence>
       {show && (
@@ -25,7 +27,7 @@ export default function SearchSuggestions({
           {loading && (
             <div className="flex items-center gap-3 px-4 py-4 text-sm text-gray-500 dark:text-gray-400">
               <Loader2 className="w-4 h-4 animate-spin text-primary-500" />
-              Searching...
+              {t('hero.searching')}
             </div>
           )}
 
@@ -34,13 +36,13 @@ export default function SearchSuggestions({
             <div className="p-3 border-b border-gray-100 dark:border-gray-700">
               <div className="flex items-center justify-between px-2 mb-2">
                 <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Recent Searches
+                  {t('ui.recentSearches')}
                 </p>
                 <button
                   onClick={onClearRecent}
                   className="text-xs text-red-500 hover:text-red-600"
                 >
-                  Clear
+                  {t('ui.clear')}
                 </button>
               </div>
               <div className="space-y-1">
@@ -63,7 +65,7 @@ export default function SearchSuggestions({
           {!loading && suggestions?.destinations?.length > 0 && (
             <div className="p-3 border-b border-gray-100 dark:border-gray-700">
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mb-2 px-2">
-                Destinations
+                {t('ui.searchDestinations')}
               </p>
               {suggestions.destinations.map((d) => (
                 <button
@@ -91,7 +93,7 @@ export default function SearchSuggestions({
           {!loading && suggestions?.hotels?.length > 0 && (
             <div className="p-3">
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mb-2 px-2">
-                Hotels
+                {t('ui.searchHotels')}
               </p>
               {suggestions.hotels.map((h) => (
                 <button
@@ -123,7 +125,7 @@ export default function SearchSuggestions({
             <div className="flex flex-col items-center py-8 px-4 text-center">
               <SearchX className="w-8 h-8 text-gray-300 dark:text-gray-600 mb-2" />
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                No results found. Try a different search.
+                {t('ui.noSearchResults')}
               </p>
             </div>
           )}

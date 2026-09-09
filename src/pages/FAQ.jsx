@@ -6,44 +6,44 @@ import Accordion from '../components/ui/Accordion';
 
 const faqs = [
   {
-    question: 'How do I book a hotel on TripNest?',
+    question: 'faq.bookQuestion',
     answer:
-      'Booking is simple! Search for your destination, select a hotel, choose your dates and room type, then complete the booking form. You will receive instant confirmation.',
+      'faq.bookAnswer',
   },
   {
-    question: 'Can I cancel or modify my booking?',
+    question: 'faq.cancelQuestion',
     answer:
-      'Yes! Most bookings come with free cancellation up to 48 hours before check-in. You can manage your bookings from your profile under "Booking History".',
+      'faq.cancelAnswer',
   },
   {
-    question: 'What payment methods do you accept?',
+    question: 'faq.paymentQuestion',
     answer:
-      'We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and various local payment methods depending on your region.',
+      'faq.paymentAnswer',
   },
   {
-    question: 'How do I get a receipt for my booking?',
+    question: 'faq.receiptQuestion',
     answer:
-      'After booking, you can download a PDF receipt from the booking success page or from your booking history at any time.',
+      'faq.receiptAnswer',
   },
   {
-    question: 'Can I use promo codes?',
+    question: 'faq.promoQuestion',
     answer:
-      'Absolutely! Enter your promo code on the booking page before confirming. The discount will be applied automatically to your total.',
+      'faq.promoAnswer',
   },
   {
-    question: 'How does the AI Trip Planner work?',
+    question: 'faq.plannerQuestion',
     answer:
-      'Our AI Trip Planner generates a personalized itinerary based on your destination, budget, number of days, and interests. It suggests hotels, restaurants, and activities.',
+      'faq.plannerAnswer',
   },
   {
-    question: 'Is my payment information secure?',
+    question: 'faq.securityQuestion',
     answer:
-      'Yes! We use industry-standard 256-bit SSL encryption and are fully PCI-DSS compliant to ensure your data is always protected.',
+      'faq.securityAnswer',
   },
   {
-    question: 'Do you offer customer support?',
+    question: 'faq.supportQuestion',
     answer:
-      'Our 24/7 customer support team is always ready to help. Contact us via email, phone, or live chat with any questions.',
+      'faq.supportAnswer',
   },
 ];
 
@@ -60,7 +60,7 @@ export default function FAQ() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold text-white mb-4"
           >
-            Frequently Asked Questions
+            {t('faq.title')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -68,7 +68,7 @@ export default function FAQ() {
             transition={{ delay: 0.2 }}
             className="text-white/80 text-lg"
           >
-            Find answers to common questions about booking with TripNest
+            {t('faq.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -76,20 +76,20 @@ export default function FAQ() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
-            <Accordion items={faqs} />
+            <Accordion items={faqs.map((item) => ({ question: t(item.question), answer: t(item.answer) }))} />
           </div>
 
           <div className="text-center mt-12">
             <HelpCircle className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2">Still have questions?</h2>
+            <h2 className="text-2xl font-bold mb-2">{t('ui.stillQuestions')}</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Our support team is here to help you 24/7
+              {t('faq.supportText')}
             </p>
             <a
               href="/contact"
               className="inline-block px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-all"
             >
-              Contact Us
+              {t('footer.contact')}
             </a>
           </div>
         </div>

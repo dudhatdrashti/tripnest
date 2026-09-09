@@ -22,15 +22,14 @@ Gem,
 import { api } from '../../services/api';
 import { useApp } from '../../context/AppContext';
 import { useTranslation } from 'react-i18next';
-import { useAnimatedCounter } from '../../hooks/useAnimatedCounter';
 import VideoModal from '../modals/VideoModal';
 
 const floatingCards = [
   {
     type: 'bestPrice',
     icon: BadgeCheck,
-    title: 'Best Price',
-    subtitle: 'Guaranteed',
+    title: 'ui.bestPrice',
+    subtitle: 'ui.guaranteed',
     gradient: 'from-emerald-400 to-teal-500',
     glow: 'shadow-emerald-500/30',
     position: 'left-[3%] top-[16%] hidden xl:flex',
@@ -39,8 +38,8 @@ const floatingCards = [
   {
     type: 'topDestination',
     icon: MapPin,
-    title: 'Top Destination',
-    subtitle: 'Bali, Indonesia',
+    title: 'ui.topDestination',
+    subtitle: 'Kyoto, Japan',
     gradient: 'from-primary-400 to-accent-500',
     glow: 'shadow-primary-500/30',
     position: 'right-[4%] top-[14%] hidden lg:flex',
@@ -49,8 +48,8 @@ const floatingCards = [
   {
     type: 'liveBooking',
     icon: CalendarCheck,
-    title: 'Live Booking',
-    subtitle: '278 today',
+    title: 'ui.liveBooking',
+    subtitle: 'ui.bookingsToday',
     gradient: 'from-rose-400 to-pink-500',
     glow: 'shadow-rose-500/30',
     position: 'left-[5%] bottom-[30%] hidden lg:flex',
@@ -59,8 +58,8 @@ const floatingCards = [
   {
     type: 'travelAward',
     icon: Crown,
-    title: 'Travel Award',
-    subtitle: 'Best Platform 2024',
+    title: 'ui.travelAward',
+    subtitle: 'ui.bestPlatform',
     gradient: 'from-amber-400 to-orange-500',
     glow: 'shadow-amber-500/30',
     position: 'right-[4%] bottom-[32%] hidden xl:flex',
@@ -69,8 +68,8 @@ const floatingCards = [
   {
     type: 'premiumMember',
     icon: Gem,
-    title: 'Premium Member',
-    subtitle: '2,400+ Travelers',
+    title: 'ui.premiumMember',
+    subtitle: 'ui.travelersCount',
     gradient: 'from-violet-400 to-purple-500',
     glow: 'shadow-violet-500/30',
     position: 'right-[22%] top-[8%] hidden 2xl:flex',
@@ -82,6 +81,9 @@ export default function Hero() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { dispatch } = useApp();
+  const travelersCount = 50;
+  const hotelsCount = 500;
+  const destinationsCount = 190;
 
   const [destination, setDestination] = useState('');
   const [checkIn, setCheckIn] = useState('');
@@ -96,10 +98,6 @@ export default function Hero() {
 
   const searchRef = useRef(null);
   const guestsRef = useRef(null);
-
-const [travelersCount] = useAnimatedCounter(50000);
-  const [hotelsCount] = useAnimatedCounter(500);
-  const [destinationsCount] = useAnimatedCounter(190);
 
   useEffect(() => {
     const load = async () => {
@@ -207,8 +205,8 @@ const [travelersCount] = useAnimatedCounter(50000);
                 <card.icon className="w-5 h-5 text-white" />
               </div>
               <div className="text-left">
-                <p className="text-xs font-semibold text-slate-900 dark:text-gray-100">{card.title}</p>
-                <p className="text-sm text-slate-600 dark:text-gray-400 mt-0.5">{card.subtitle}</p>
+                <p className="text-xs font-semibold text-slate-900 dark:text-gray-100">{t(card.title)}</p>
+                <p className="text-sm text-slate-600 dark:text-gray-400 mt-0.5">{card.subtitle.startsWith('ui.') ? t(card.subtitle) : card.subtitle}</p>
               </div>
             </div>
           </div>
@@ -285,7 +283,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                         onFocus={() => setShowSuggestions(true)}
                         placeholder={t('hero.destinationPlaceholder')}
                         className="w-full bg-transparent text-slate-900 dark:text-white text-sm font-medium placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none"
-                        aria-label="Destination"
+                        aria-label={t('hero.destination')}
                       />
                     </div>
                   </div>
@@ -304,7 +302,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                           loadingSuggestions ? (
                             <div className="p-4 text-sm text-slate-500 dark:text-gray-400 flex items-center gap-2">
                               <div className="w-4 h-4 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
-                              Searching...
+                              {t('hero.searching')}
                             </div>
                           ) : allSuggestions.length > 0 ? (
                             <div className="py-2 max-h-72 overflow-y-auto">
@@ -390,7 +388,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                       if (checkOut && e.target.value >= checkOut) setCheckOut('');
                     }}
                     className="bg-transparent text-slate-900 dark:text-white text-sm font-medium focus:outline-none"
-                    aria-label="Check-in date"
+                    aria-label={t('hero.checkIn')}
                   />
                 </div>
 
@@ -407,7 +405,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                     min={minCheckout}
                     onChange={(e) => setCheckOut(e.target.value)}
                     className="bg-transparent text-slate-900 dark:text-white text-sm font-medium focus:outline-none"
-                    aria-label="Check-out date"
+                    aria-label={t('hero.checkOut')}
                   />
                 </div>
 
@@ -449,7 +447,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                               type="button"
                               onClick={() => setGuests((g) => Math.max(1, g - 1))}
                               className="w-8 h-8 rounded-full border border-slate-300 dark:border-gray-600 flex items-center justify-center text-slate-600 dark:text-gray-300 hover:border-primary-500 hover:text-primary-500 transition-colors"
-                              aria-label="Decrease guests"
+                              aria-label={t('ui.decreaseGuests')}
                             >
                               −
                             </button>
@@ -458,7 +456,7 @@ const [travelersCount] = useAnimatedCounter(50000);
                               type="button"
                               onClick={() => setGuests((g) => Math.min(10, g + 1))}
                               className="w-8 h-8 rounded-full border border-slate-300 dark:border-gray-600 flex items-center justify-center text-slate-600 dark:text-gray-300 hover:border-primary-500 hover:text-primary-500 transition-colors"
-                              aria-label="Increase guests"
+                              aria-label={t('ui.increaseGuests')}
                             >
                               +
                             </button>
@@ -493,7 +491,7 @@ transition={{ delay: 0.7, duration: 0.6 }}
             <Link
               to="/destinations"
               className="btn-premium group inline-flex items-center gap-2.5 px-9 py-4 rounded-2xl text-[15px] text-white font-semibold"
-              aria-label="Explore destinations"
+              aria-label={t('hero.exploreDestinations')}
             >
               <MapPin className="w-5 h-5 transition-transform group-hover:-translate-y-0.5" />
               {t('hero.exploreDestinations')}
@@ -502,7 +500,7 @@ transition={{ delay: 0.7, duration: 0.6 }}
             <button
               onClick={() => setShowVideo(true)}
               className="group inline-flex items-center gap-3.5 px-4 py-2 text-white/90 font-semibold rounded-2xl hover:text-white transition-all nav-btn"
-              aria-label="Watch video"
+              aria-label={t('hero.watchVideo')}
             >
               <motion.span
                 whileHover={{ scale: 1.1 }}
@@ -533,18 +531,18 @@ className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-14"
             </span>
 <span className="flex items-center gap-2.5 px-4 py-2.5 glass-card dark:glass-card-dark rounded-2xl hover:scale-105 hover:shadow-primary-500/20 transition-all duration-300">
               <Users className="w-4 h-4 text-primary-300" />
-              <span className="font-bold text-white text-sm">{travelersCount.toLocaleString()}K+</span>
-              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.travelers')}</span>
+              <span className="font-bold text-white text-sm">{travelersCount}K+</span>
+              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.travelersLabel')}</span>
             </span>
             <span className="flex items-center gap-2.5 px-4 py-2.5 glass-card dark:glass-card-dark rounded-2xl hover:scale-105 hover:shadow-primary-500/20 transition-all duration-300">
               <Building2 className="w-4 h-4 text-primary-300" />
               <span className="font-bold text-white text-sm">{hotelsCount}+</span>
-              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.hotels')}</span>
+              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.hotelsLabel')}</span>
             </span>
             <span className="flex items-center gap-2.5 px-4 py-2.5 glass-card dark:glass-card-dark rounded-2xl hover:scale-105 hover:shadow-primary-500/20 transition-all duration-300">
               <Globe2 className="w-4 h-4 text-primary-300" />
               <span className="font-bold text-white text-sm">{destinationsCount}+</span>
-              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.destinations')}</span>
+              <span className="text-white/70 text-xs hidden sm:inline">{t('hero.destinationsLabel')}</span>
             </span>
             <span className="flex items-center gap-2.5 px-4 py-2.5 glass-card dark:glass-card-dark rounded-2xl hover:scale-105 hover:shadow-primary-500/20 transition-all duration-300">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />

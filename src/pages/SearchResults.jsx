@@ -68,7 +68,7 @@ export default function SearchResults() {
         setHotels(results);
         setCurrentPage(1);
       } catch (error) {
-        toast.error('Failed to load results');
+        toast.error(t('ui.failedLoad', { item: t('ui.resultsWord') }));
       } finally {
         setLoading(false);
       }
@@ -139,7 +139,7 @@ export default function SearchResults() {
 
 const clearRecentSearches = () => {
     dispatch({ type: 'CLEAR_RECENT_SEARCHES' });
-    toast.success('Recent searches cleared');
+    toast.success(t('ui.recentCleared'));
   };
 
   const paginatedHotels = useMemo(() => {
@@ -172,7 +172,7 @@ const clearRecentSearches = () => {
             className="flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4 text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Home
+            {t('ui.backToHome')}
           </button>
 
 <Breadcrumb
@@ -197,7 +197,7 @@ const clearRecentSearches = () => {
                 onFocus={() => setShowSuggestions(true)}
                 placeholder={t('home.searchPlaceholder')}
                 className="w-full px-6 py-4 pl-14 pr-24 bg-white dark:bg-gray-900 rounded-2xl shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                aria-label="Search"
+                aria-label={t('common.search')}
               />
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               {query && (
@@ -208,7 +208,7 @@ const clearRecentSearches = () => {
                     setShowSuggestions(false);
                   }}
                   className="absolute right-24 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                  aria-label="Clear search"
+                  aria-label={t('ui.clearSearch')}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -256,7 +256,7 @@ const clearRecentSearches = () => {
               className="px-3 py-2 bg-white dark:bg-gray-800 rounded-xl shadow text-sm"
             >
               {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
               ))}
             </select>
           </div>
@@ -294,7 +294,7 @@ const clearRecentSearches = () => {
                   <button
                     onClick={() => setShowFilters(false)}
                     className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-                    aria-label="Close filters"
+                    aria-label={t('ui.closeFilters')}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -342,7 +342,7 @@ const clearRecentSearches = () => {
                   className="px-3 py-2 bg-white dark:bg-gray-800 rounded-xl shadow text-sm border border-gray-100 dark:border-gray-700"
                 >
                   {SORT_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                   ))}
                 </select>
               </div>
@@ -354,7 +354,7 @@ const clearRecentSearches = () => {
               <EmptyState
                 icon={Search}
                 title={t('search.noResults')}
-                description="Try adjusting your filters or search for a different destination"
+                description={t('ui.adjustFilters')}
                 actionLabel={t('search.clearFilters')}
                 onAction={clearFilters}
               />
